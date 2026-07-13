@@ -235,63 +235,67 @@
       <h1>Agenda Generator</h1>
     </span>
     <span class="spacer"></span>
-    <button class="ghost" id="btnSave" title="Download everything — day, rooms, committees, schedule — as one project file you can reopen or send to a colleague">💾 Save project</button>
-    <span class="filebtn ghost btnlike" title="Open a previously saved project file">📂 Open<input type="file" id="fileJson" accept=".json,application/json"></span>
-    <button class="ghost" id="btnExample">Load example</button>
-    <button class="ghost" id="btnClear">New / clear</button>
+    <span class="seg" id="langToggle" title="Limbă / Language">
+      <button type="button" data-lang="ro">RO</button>
+      <button type="button" data-lang="en">EN</button>
+    </span>
+    <button class="ghost" id="btnSave" data-i18n="btnSave" data-i18n-title="btnSaveT" title="Download everything — day, rooms, committees, schedule — as one project file you can reopen or send to a colleague">💾 Save project</button>
+    <span class="filebtn ghost btnlike" data-i18n-title="btnOpenT" title="Open a previously saved project file"><span data-i18n="btnOpen">📂 Open</span><input type="file" id="fileJson" accept=".json,application/json"></span>
+    <button class="ghost" id="btnExample" data-i18n="btnExample">Load example</button>
+    <button class="ghost" id="btnClear" data-i18n="btnClear">New / clear</button>
   </header>
 
   <div class="steps" id="steps">
-    <button data-step="1"><span class="stnum">1</span><span class="stlab">The day<small>Title, date &amp; times</small></span></button>
-    <button data-step="2"><span class="stnum">2</span><span class="stlab">Committees &amp; people<small>Who assesses whom</small></span></button>
-    <button data-step="3"><span class="stnum">3</span><span class="stlab">Schedule<small>Generate, then fine-tune</small></span></button>
-    <button data-step="4"><span class="stnum">4</span><span class="stlab">Print &amp; save<small>Agendas, PDF &amp; files</small></span></button>
+    <button data-step="1"><span class="stnum">1</span><span class="stlab"><span data-i18n="step1">The day</span><small data-i18n="step1s">Title, date &amp; times</small></span></button>
+    <button data-step="2"><span class="stnum">2</span><span class="stlab"><span data-i18n="step2">Committees &amp; people</span><small data-i18n="step2s">Who assesses whom</small></span></button>
+    <button data-step="3"><span class="stnum">3</span><span class="stlab"><span data-i18n="step3">Schedule</span><small data-i18n="step3s">Generate, then fine-tune</small></span></button>
+    <button data-step="4"><span class="stnum">4</span><span class="stlab"><span data-i18n="step4">Print &amp; save</span><small data-i18n="step4s">Agendas, PDF &amp; files</small></span></button>
   </div>
 
   <!-- STEP 1: THE DAY -->
   <section id="step-1" class="step">
    <div class="step-narrow">
     <div class="panel">
-      <h2>Tell us about the day</h2>
+      <h2 data-i18n="s1_title">Tell us about the day</h2>
       <div class="grid-meta">
-        <div><label>Event title</label><input id="m-title" placeholder="Assessment Centre"></div>
-        <div><label>Date</label><input id="m-date" type="date"></div>
-        <div><label>Day starts</label><input id="m-start" type="time" value="09:00"></div>
-        <div><label>Day ends</label><input id="m-end" type="time" value="18:00"></div>
+        <div><label data-i18n="lbl_title">Event title</label><input id="m-title" data-i18n-placeholder="ph_title" placeholder="Assessment Centre"></div>
+        <div><label data-i18n="lbl_date">Date</label><input id="m-date" type="date"></div>
+        <div><label data-i18n="lbl_start">Day starts</label><input id="m-start" type="time" value="09:00"></div>
+        <div><label data-i18n="lbl_end">Day ends</label><input id="m-end" type="time" value="18:00"></div>
       </div>
       <details class="adv">
-        <summary>Advanced: time grid</summary>
+        <summary data-i18n="adv_grid">Advanced: time grid</summary>
         <div class="advbody">
           <div class="grid-meta">
-            <div><label>Slot size (minutes)</label>
+            <div><label data-i18n="lbl_slot">Slot size (minutes)</label>
               <select id="m-slot">
                 <option>5</option><option>10</option><option selected>15</option>
                 <option>20</option><option>30</option><option>60</option>
               </select>
             </div>
           </div>
-          <p class="hint">The schedule grid is divided into slots of this length. Changing it (or the day start/end) re-fits the grid — activities keep their time and duration where they still fit.</p>
+          <p class="hint" data-i18n="hint_slot">The schedule grid is divided into slots of this length. Changing it (or the day start/end) re-fits the grid — activities keep their time and duration where they still fit.</p>
         </div>
       </details>
     </div>
 
     <div class="panel">
       <div class="row" style="margin-bottom:8px">
-        <h2 style="margin:0">Rooms &amp; colours</h2>
+        <h2 style="margin:0" data-i18n="s1_rooms">Rooms &amp; colours</h2>
         <span class="spacer" style="flex:1"></span>
-        <button id="btnAddRoom" class="ghost">+ Add room</button>
+        <button id="btnAddRoom" class="ghost" data-i18n="btnAddRoom">+ Add room</button>
       </div>
-      <p class="hint" style="margin-top:0">Every activity happens in a room, and the room's colour on a printed agenda tells the participant where to go. The defaults below cover a normal assessment day — you can rename them or add more.</p>
+      <p class="hint" style="margin-top:0" data-i18n="hint_rooms">Every activity happens in a room, and the room's colour on a printed agenda tells the participant where to go. The defaults below cover a normal assessment day — you can rename them or add more.</p>
       <div id="rooms" class="rooms-wrap"></div>
       <details class="adv">
-        <summary>What do “= committee” and “shared” mean?</summary>
+        <summary data-i18n="adv_rooms_q">What do “= committee” and “shared” mean?</summary>
         <div class="advbody">
-          <p class="hint" style="margin-top:0"><b>= committee</b> — the room takes each committee's own colour automatically (used for the Exercise room, so each committee's exercises show in that committee's colour). Untick it to give the room one fixed colour instead.</p>
-          <p class="hint"><b>shared</b> — several participants may be in this room at the same time (like the Common room). Rooms that are <i>not</i> shared trigger a double-booking warning if two people are scheduled there at once.</p>
+          <p class="hint" style="margin-top:0" data-i18n-html="adv_rooms_1"><b>= committee</b> — the room takes each committee's own colour automatically (used for the Exercise room, so each committee's exercises show in that committee's colour). Untick it to give the room one fixed colour instead.</p>
+          <p class="hint" data-i18n-html="adv_rooms_2"><b>shared</b> — several participants may be in this room at the same time (like the Common room). Rooms that are <i>not</i> shared trigger a double-booking warning if two people are scheduled there at once.</p>
         </div>
       </details>
     </div>
-    <div class="stepnav"><span class="spacer"></span><button data-goto="2">Next: Committees &amp; people →</button></div>
+    <div class="stepnav"><span class="spacer"></span><button data-goto="2" data-i18n="next2">Next: Committees &amp; people →</button></div>
    </div>
   </section>
 
@@ -300,14 +304,14 @@
    <div class="step-narrow">
     <div class="panel">
       <div class="row" style="margin-bottom:8px">
-        <h2 style="margin:0">Committees</h2>
+        <h2 style="margin:0" data-i18n="s2_title">Committees</h2>
         <span class="spacer" style="flex:1"></span>
-        <button id="btnAddCommittee">+ Add committee</button>
+        <button id="btnAddCommittee" data-i18n="btnAddCommittee">+ Add committee</button>
       </div>
-      <p class="hint" style="margin-top:0">A committee is a fixed pair of evaluators who assess their own group of participants for the whole day. The committee's colour marks its exercise room on every agenda.</p>
+      <p class="hint" style="margin-top:0" data-i18n="hint_committees">A committee is a fixed pair of evaluators who assess their own group of participants for the whole day. The committee's colour marks its exercise room on every agenda.</p>
       <div id="peopleList"></div>
     </div>
-    <div class="stepnav"><button class="ghost" data-goto="1">← Back</button><span class="spacer"></span><button data-goto="3">Next: Schedule →</button></div>
+    <div class="stepnav"><button class="ghost" data-goto="1" data-i18n="back">← Back</button><span class="spacer"></span><button data-goto="3" data-i18n="next3">Next: Schedule →</button></div>
    </div>
   </section>
 
@@ -315,71 +319,71 @@
   <section id="step-3" class="step" style="display:none">
     <div class="panel hero">
       <div>
-        <h2>✨ Let the app build the day <span class="beta">beta</span></h2>
-        <p>One click builds each committee's full day — introduction, exercise rotation, lunch and group exercise — with no double-bookings. You can drag things around afterwards, and “Check the schedule” tells you if anything breaks the rules.</p>
+        <h2><span data-i18n="hero_title">✨ Let the app build the day</span> <span class="beta">beta</span></h2>
+        <p data-i18n="hero_p">One click builds each committee's full day — introduction, exercise rotation, lunch and group exercise — with no double-bookings. You can drag things around afterwards, and “Check the schedule” tells you if anything breaks the rules.</p>
       </div>
       <div class="hero-actions">
-        <button id="btnGen" class="big">✨ Recommend a schedule</button>
-        <button class="ghost" id="btnValidate">✔ Check the schedule</button>
+        <button id="btnGen" class="big" data-i18n="btnGen">✨ Recommend a schedule</button>
+        <button class="ghost" id="btnValidate" data-i18n="btnValidate">✔ Check the schedule</button>
       </div>
     </div>
     <div id="valresults" class="valresults" style="margin:0 0 16px"></div>
 
     <details class="adv panelish">
-      <summary>Exercise library — what goes into a generated day</summary>
+      <summary data-i18n="lib_summary">Exercise library — what goes into a generated day</summary>
       <div class="advbody">
-        <p class="hint" style="margin-top:0">These are the building blocks the generator uses. <b>prep</b> = minutes a participant prepares alone in the common room; <b>run</b> = minutes in front of the committee. Untick <b>use</b> to leave an exercise out. <b>order</b> — leave on <i>auto</i> to let the generator stagger participants freely, or force an exercise to a fixed position (1st, 2nd…) in every participant's day. <b>after</b> — force an exercise to always come after another one. <i>Durations are placeholders until the assessors confirm them.</i></p>
+        <p class="hint" style="margin-top:0" data-i18n-html="lib_hint">These are the building blocks the generator uses. <b>prep</b> = minutes a participant prepares alone in the common room; <b>run</b> = minutes in front of the committee. Untick <b>use</b> to leave an exercise out. <b>order</b> — leave on <i>auto</i> to let the generator stagger participants freely, or force an exercise to a fixed position (1st, 2nd…) in every participant's day. <b>after</b> — force an exercise to always come after another one. <i>Durations are placeholders until the assessors confirm them.</i></p>
         <div id="exlib" class="exlib"></div>
-        <div class="row" style="margin-top:8px"><button id="btnAddEx" class="ghost tiny">+ Add exercise</button></div>
+        <div class="row" style="margin-top:8px"><button id="btnAddEx" class="ghost tiny" data-i18n="btnAddEx">+ Add exercise</button></div>
       </div>
     </details>
 
     <div class="panel">
       <div class="row" style="margin-bottom:8px">
-        <h2 style="margin:0">Fine-tune by hand</h2>
+        <h2 style="margin:0" data-i18n="s3_manual">Fine-tune by hand</h2>
         <span class="spacer" style="flex:1"></span>
-        <span class="seg" id="layoutToggle" title="Schedule layout">
-          <button type="button" data-layout="horizontal">⬌ Horizontal</button>
-          <button type="button" data-layout="vertical">⬍ Vertical</button>
+        <span class="seg" id="layoutToggle" data-i18n-title="tt_layout" title="Schedule layout">
+          <button type="button" data-layout="horizontal" data-i18n="lay_h">⬌ Horizontal</button>
+          <button type="button" data-layout="vertical" data-i18n="lay_v">⬍ Vertical</button>
         </span>
       </div>
-      <p class="hint" style="margin-top:0">Click an empty cell to add an activity, or drag across empty cells to set its length. Drag a coloured block to move it; drag its edge to make it longer or shorter.</p>
+      <p class="hint" style="margin-top:0" data-i18n="hint_manual">Click an empty cell to add an activity, or drag across empty cells to set its length. Drag a coloured block to move it; drag its edge to make it longer or shorter.</p>
       <div id="committees"></div>
     </div>
-    <div class="stepnav"><button class="ghost" data-goto="2">← Back</button><span class="spacer"></span><button data-goto="4">Next: Print &amp; save →</button></div>
+    <div class="stepnav"><button class="ghost" data-goto="2" data-i18n="back">← Back</button><span class="spacer"></span><button data-goto="4" data-i18n="next4">Next: Print &amp; save →</button></div>
   </section>
 
   <!-- STEP 4: PRINT & SAVE -->
   <section id="step-4" class="step" style="display:none">
     <div class="panel preview-panel">
       <div class="row" style="margin-bottom:10px">
-        <h2 style="margin:0">Preview &amp; print</h2>
+        <h2 style="margin:0" data-i18n="s4_title">Preview &amp; print</h2>
         <span class="hint" id="prevCount" style="margin:0"></span>
         <span class="spacer" style="flex:1"></span>
-        <select id="prevWhich" title="Choose which documents to preview and print">
-          <option value="individual">Individual agendas — one page per participant</option>
-          <option value="committee">Committee views — one page per committee</option>
-          <option value="master">Master grid — the whole day on one page</option>
+        <select id="prevWhich" data-i18n-title="tt_prevWhich" title="Choose which documents to preview and print">
+          <option value="individual" data-i18n="opt_ind">Individual agendas — one page per participant</option>
+          <option value="committee" data-i18n="opt_com">Committee views — one page per committee</option>
+          <option value="master" data-i18n="opt_mas">Master grid — the whole day on one page</option>
         </select>
-        <button id="btnPrint">🖨 Print / Save as PDF</button>
-        <button class="ghost" id="btnPrintAll" title="Prints individual agendas, committee views and the master grid in one go">🖨 Print everything</button>
+        <button id="btnPrint" data-i18n="btnPrint">🖨 Print / Save as PDF</button>
+        <button class="ghost" id="btnPrintAll" data-i18n="btnPrintAll" data-i18n-title="btnPrintAllT" title="Prints individual agendas, committee views and the master grid in one go">🖨 Print everything</button>
       </div>
-      <p class="hint" style="margin-top:0">Every agenda is automatically shrunk to fit <b>exactly one A4 page</b>, and the master grid prints sideways on its page — no printer settings to fiddle with. In the print window choose <b>“Save as PDF”</b> to get a file; if colours look missing, tick <b>“Background graphics”</b> there.</p>
+      <p class="hint" style="margin-top:0" data-i18n-html="hint_print">Every agenda is automatically shrunk to fit <b>exactly one A4 page</b>, and the master grid prints sideways on its page — no printer settings to fiddle with. In the print window choose <b>“Save as PDF”</b> to get a file; if colours look missing, tick <b>“Background graphics”</b> there.</p>
       <div id="preview" class="preview-stage"></div>
     </div>
 
     <details class="adv panelish">
-      <summary>Spreadsheets (CSV) — export or import the schedule as a table</summary>
+      <summary data-i18n="csv_summary">Spreadsheets (CSV) — export or import the schedule as a table</summary>
       <div class="advbody">
         <div class="row">
-          <button class="ghost" id="btnExportCsv">⬇ Export to spreadsheet (CSV)</button>
-          <span class="filebtn ghost btnlike">⬆ Import from spreadsheet (CSV)<input type="file" id="fileCsv" accept=".csv,text/csv"></span>
-          <button class="ghost" id="btnTemplate">📄 Download a blank template</button>
+          <button class="ghost" id="btnExportCsv" data-i18n="btnExportCsv">⬇ Export to spreadsheet (CSV)</button>
+          <span class="filebtn ghost btnlike"><span data-i18n="btnImportCsv">⬆ Import from spreadsheet (CSV)</span><input type="file" id="fileCsv" accept=".csv,text/csv"></span>
+          <button class="ghost" id="btnTemplate" data-i18n="btnTemplate">📄 Download a blank template</button>
         </div>
-        <p class="hint">Columns: <code>Committee, Evaluators, Participant, Activity, Room, Start, End</code> — one row per activity. To save your whole project instead, use <b>💾 Save project</b> in the top bar.</p>
+        <p class="hint" data-i18n-html="hint_csv">Columns: <code>Committee, Evaluators, Participant, Activity, Room, Start, End</code> — one row per activity. To save your whole project instead, use <b>💾 Save project</b> in the top bar.</p>
       </div>
     </details>
-    <div class="stepnav" style="margin-top:0"><button class="ghost" data-goto="3">← Back to the schedule</button><span class="spacer"></span></div>
+    <div class="stepnav" style="margin-top:0"><button class="ghost" data-goto="3" data-i18n="back_sched">← Back to the schedule</button><span class="spacer"></span></div>
   </section>
 </div>
 
@@ -388,29 +392,29 @@
   <div class="modal">
     <h3 id="mdTitle">Activity</h3>
     <div class="field">
-      <label>Activity</label>
-      <input id="mdName" list="activityList" placeholder="e.g. Business case" autocomplete="off">
+      <label data-i18n="md_lbl_activity">Activity</label>
+      <input id="mdName" list="activityList" data-i18n-placeholder="md_ph_name" placeholder="e.g. Business case" autocomplete="off">
       <datalist id="activityList"></datalist>
     </div>
     <div class="field">
-      <label>Duration</label>
+      <label data-i18n="md_lbl_dur">Duration</label>
       <div class="row">
         <select id="mdSpan"></select>
         <span class="muted" id="mdSpanInfo"></span>
       </div>
     </div>
     <div class="field">
-      <label>Room (sets the colour)</label>
+      <label data-i18n="md_lbl_room">Room (sets the colour)</label>
       <div class="row">
         <span id="mdRoomColor" style="width:26px;height:26px;border-radius:6px;border:1px solid var(--line);display:inline-block"></span>
         <select id="mdRoom" style="flex:1"></select>
       </div>
     </div>
     <div class="actions">
-      <button class="danger" id="mdDelete">Delete</button>
+      <button class="danger" id="mdDelete" data-i18n="md_delete">Delete</button>
       <span class="spacer"></span>
-      <button class="ghost" id="mdCancel">Cancel</button>
-      <button id="mdSave">Save</button>
+      <button class="ghost" id="mdCancel" data-i18n="md_cancel">Cancel</button>
+      <button id="mdSave" data-i18n="md_save">Save</button>
     </div>
   </div>
 </div>
@@ -418,14 +422,14 @@
 <!-- generate modal -->
 <div class="overlay" id="genOverlay">
   <div class="modal">
-    <h3>Recommend a schedule</h3>
-    <p class="hint" style="margin-top:0">For every committee this builds a full day: introduction → each participant rotates through the exercises → lunch → group exercise. It uses the exercises ticked “use” in the library, and never double-books anyone.</p>
-    <div class="field"><label>Start waves — split each committee's group into a morning and an afternoon start?</label>
-      <select id="genWaves"><option value="auto" selected>Decide for me (split when more than 2 participants)</option><option value="1">No — everyone starts in the morning</option><option value="2">Yes — always two waves</option></select></div>
-    <div class="field"><label>Note-writing break for evaluators after each exercise (minutes)</label>
+    <h3 data-i18n="gen_title">Recommend a schedule</h3>
+    <p class="hint" style="margin-top:0" data-i18n="gen_hint">For every committee this builds a full day: introduction → each participant rotates through the exercises → lunch → group exercise. It uses the exercises ticked “use” in the library, and never double-books anyone.</p>
+    <div class="field"><label data-i18n="gen_lbl_waves">Start waves — split each committee's group into a morning and an afternoon start?</label>
+      <select id="genWaves"><option value="auto" selected data-i18n="gen_opt_auto">Decide for me (split when more than 2 participants)</option><option value="1" data-i18n="gen_opt_1">No — everyone starts in the morning</option><option value="2" data-i18n="gen_opt_2">Yes — always two waves</option></select></div>
+    <div class="field"><label data-i18n="gen_lbl_gap">Note-writing break for evaluators after each exercise (minutes)</label>
       <input id="genGap" type="number" min="0" step="5" value="0"></div>
-    <div class="field"><label class="exinc"><input type="checkbox" id="genGroup" checked> <span>Include the group exercise</span></label></div>
-    <div class="actions"><span class="spacer"></span><button class="ghost" id="genCancel">Cancel</button><button id="genGo">Generate</button></div>
+    <div class="field"><label class="exinc"><input type="checkbox" id="genGroup" checked> <span data-i18n="gen_lbl_group">Include the group exercise</span></label></div>
+    <div class="actions"><span class="spacer"></span><button class="ghost" id="genCancel" data-i18n="md_cancel">Cancel</button><button id="genGo" data-i18n="gen_go">Generate</button></div>
   </div>
 </div>
 
@@ -434,6 +438,307 @@
 <script>
 
 "use strict";
+
+/* ---------- i18n (RO default, EN available; choice persisted per browser) ---------- */
+var I18N={
+en:{
+  btnSave:"💾 Save project",
+  btnSaveT:"Download everything — day, rooms, committees, schedule — as one project file you can reopen or send to a colleague",
+  btnOpen:"📂 Open", btnOpenT:"Open a previously saved project file",
+  btnExample:"Load example", btnClear:"New / clear",
+  step1:"The day", step1s:"Title, date & times",
+  step2:"Committees & people", step2s:"Who assesses whom",
+  step3:"Schedule", step3s:"Generate, then fine-tune",
+  step4:"Print & save", step4s:"Agendas, PDF & files",
+  s1_title:"Tell us about the day",
+  lbl_title:"Event title", ph_title:"Assessment Centre",
+  lbl_date:"Date", lbl_start:"Day starts", lbl_end:"Day ends",
+  adv_grid:"Advanced: time grid", lbl_slot:"Slot size (minutes)",
+  hint_slot:"The schedule grid is divided into slots of this length. Changing it (or the day start/end) re-fits the grid — activities keep their time and duration where they still fit.",
+  s1_rooms:"Rooms & colours", btnAddRoom:"+ Add room",
+  hint_rooms:"Every activity happens in a room, and the room's colour on a printed agenda tells the participant where to go. The defaults below cover a normal assessment day — you can rename them or add more.",
+  adv_rooms_q:"What do “= committee” and “shared” mean?",
+  adv_rooms_1:"<b>= committee</b> — the room takes each committee's own colour automatically (used for the Exercise room, so each committee's exercises show in that committee's colour). Untick it to give the room one fixed colour instead.",
+  adv_rooms_2:"<b>shared</b> — several participants may be in this room at the same time (like the Common room). Rooms that are <i>not</i> shared trigger a double-booking warning if two people are scheduled there at once.",
+  next2:"Next: Committees & people →", back:"← Back",
+  s2_title:"Committees", btnAddCommittee:"+ Add committee",
+  hint_committees:"A committee is a fixed pair of evaluators who assess their own group of participants for the whole day. The committee's colour marks its exercise room on every agenda.",
+  next3:"Next: Schedule →",
+  hero_title:"✨ Let the app build the day",
+  hero_p:"One click builds each committee's full day — introduction, exercise rotation, lunch and group exercise — with no double-bookings. You can drag things around afterwards, and “Check the schedule” tells you if anything breaks the rules.",
+  btnGen:"✨ Recommend a schedule", btnValidate:"✔ Check the schedule",
+  lib_summary:"Exercise library — what goes into a generated day",
+  lib_hint:"These are the building blocks the generator uses. <b>prep</b> = minutes a participant prepares alone in the common room; <b>run</b> = minutes in front of the committee. Untick <b>use</b> to leave an exercise out. <b>order</b> — leave on <i>auto</i> to let the generator stagger participants freely, or force an exercise to a fixed position (1st, 2nd…) in every participant's day. <b>after</b> — force an exercise to always come after another one. <i>Durations are placeholders until the assessors confirm them.</i>",
+  btnAddEx:"+ Add exercise",
+  s3_manual:"Fine-tune by hand", tt_layout:"Schedule layout",
+  lay_h:"⬌ Horizontal", lay_v:"⬍ Vertical",
+  hint_manual:"Click an empty cell to add an activity, or drag across empty cells to set its length. Drag a coloured block to move it; drag its edge to make it longer or shorter.",
+  next4:"Next: Print & save →", back_sched:"← Back to the schedule",
+  s4_title:"Preview & print", tt_prevWhich:"Choose which documents to preview and print",
+  opt_ind:"Individual agendas — one page per participant",
+  opt_com:"Committee views — one page per committee",
+  opt_mas:"Master grid — the whole day on one page",
+  btnPrint:"🖨 Print / Save as PDF", btnPrintAll:"🖨 Print everything",
+  btnPrintAllT:"Prints individual agendas, committee views and the master grid in one go",
+  hint_print:"Every agenda is automatically shrunk to fit <b>exactly one A4 page</b>, and the master grid prints sideways on its page — no printer settings to fiddle with. In the print window choose <b>“Save as PDF”</b> to get a file; if colours look missing, tick <b>“Background graphics”</b> there.",
+  csv_summary:"Spreadsheets (CSV) — export or import the schedule as a table",
+  btnExportCsv:"⬇ Export to spreadsheet (CSV)", btnImportCsv:"⬆ Import from spreadsheet (CSV)",
+  btnTemplate:"📄 Download a blank template",
+  hint_csv:"Columns: <code>Committee, Evaluators, Participant, Activity, Room, Start, End</code> — one row per activity. To save your whole project instead, use <b>💾 Save project</b> in the top bar.",
+  md_lbl_activity:"Activity", md_ph_name:"e.g. Business case", md_lbl_dur:"Duration",
+  md_lbl_room:"Room (sets the colour)",
+  md_delete:"Delete", md_cancel:"Cancel", md_save:"Save",
+  md_edit:"Edit activity", md_add:"Add activity",
+  gen_title:"Recommend a schedule",
+  gen_hint:"For every committee this builds a full day: introduction → each participant rotates through the exercises → lunch → group exercise. It uses the exercises ticked “use” in the library, and never double-books anyone.",
+  gen_lbl_waves:"Start waves — split each committee's group into a morning and an afternoon start?",
+  gen_opt_auto:"Decide for me (split when more than 2 participants)",
+  gen_opt_1:"No — everyone starts in the morning", gen_opt_2:"Yes — always two waves",
+  gen_lbl_gap:"Note-writing break for evaluators after each exercise (minutes)",
+  gen_lbl_group:"Include the group exercise", gen_go:"Generate",
+  room_common:"Common room", room_exercise:"Exercise room", room_break:"Break room",
+  room_default:"Room {0}", committee_default:"Committee {0}", committee_fallback:"Committee",
+  ex_intro:"Introduction", ex_case:"Case study", ex_role:"Role play", ex_fact:"Fact finding",
+  ex_pres:"Presentation", ex_quiz:"Questionnaire", ex_group:"Group exercise", ex_lunch:"Lunch",
+  ex_new:"New exercise",
+  suffix_copy:" (copy)", suffix_prep:" (prep)",
+  cat_intro:"intro", cat_individual:"individual", cat_quiz:"quiz", cat_group:"group", cat_lunch:"lunch",
+  lbl_prep:"prep", lbl_run:"run", lbl_order:"order", lbl_after:"after", lbl_use:"use",
+  tt_prepmin:"Prep minutes", tt_runmin:"Run minutes",
+  tt_use:"Include in generated schedules", tt_delex:"Remove exercise",
+  tt_order:"Position in every participant's day — auto lets the generator stagger participants",
+  tt_after:"Force this exercise to come after another one",
+  ord:function(n){ return n+(n===1?"st":n===2?"nd":n===3?"rd":"th"); },
+  tt_roomAuto:"Following committee colour — untick “= committee” to set a fixed colour",
+  tt_roomPick:"Pick room colour",
+  lbl_eqcommittee:"= committee", lbl_shared:"shared",
+  tt_shared:"Multiple participants can be here at once (won't trigger a clash warning)",
+  tt_remroom:"Remove room",
+  es_sched:"Nothing to schedule yet — first add a committee and its participants.",
+  es_go2:"Go to step 2: Committees & people", es_example:"Load a full example",
+  es_people:"No committees yet. Click “+ Add committee” above to create the first one — you'll get two participants to rename.",
+  tt_ccolor:"Committee colour — marks this committee's exercise room on every agenda",
+  ph_cname:"Committee name", btn_dup:"⧉ Duplicate",
+  tt_dupc:"Copy this committee with its participants and schedule", btn_remove:"Remove",
+  confirm_removec:"Remove committee “{0}” and its schedule?",
+  lbl_evaluators:"Evaluators — the two assessors on this committee",
+  ph_evaluators:"e.g. Ana Pop, Mihai Ion",
+  lbl_participants:"Participants ({0})", ph_pname:"Participant name",
+  tt_dupp:"Duplicate this participant and their schedule",
+  tt_dupp2:"Duplicate this participant's schedule", tt_remp:"Remove participant",
+  btn_addp:"+ Add participant", btn_editp:"✎ Edit people",
+  tt_editp:"Rename this committee, change its colour, or add/remove participants (step 2)",
+  hint_grid_empty:"The grid is empty — check the day start, day end and slot size in step 1.",
+  hint_no_parts:"This committee has no participants yet — add them in step 2.",
+  hint_cell:"Click a cell to add an activity, or click-and-drag across empty cells to set its length. Click a coloured block to edit it.",
+  clash_warn:function(n){ return "⚠ Double-booked: "+n+" time slot"+(n>1?"s":"")+" with two participants in non-shared rooms at once"; },
+  tt_block:" — drag to move, drag the edge to resize",
+  tt_free:"Free / downtime — click or drag",
+  grid_time:"Time", grid_participant:"Participant",
+  opt_slots:function(s,min){ return s+" slot"+(s>1?"s":"")+" ("+min+" min)"; },
+  opt_newroom:"➕ New room…", prompt_newroom:"New room name:",
+  toast_loaded:"Project loaded",
+  alert_badfile:"That doesn't look like a valid project file.",
+  alert_csvempty:"CSV looks empty.",
+  alert_csvcols:"CSV must have at least Committee, Participant, Activity, Start columns.",
+  toast_imported:"Imported {0} rows",
+  alert_daytimes:"Set a valid day start/end and slot size first.",
+  alert_needrooms:"Need at least a common room and an exercise room.",
+  alert_conflicts:"The exercise ordering rules contradict each other — fix these in the exercise library first:\n\n• ",
+  confirm_replace:"Replace the current schedule for all committees?",
+  confirm_clear:"Clear everything and start fresh?",
+  toast_example:"Example loaded — schedule auto-generated",
+  example_title:"Assessment Centre",
+  prevcount:function(n,which){ var lbl=which==="individual"?"agenda":(which==="committee"?"committee":"page"); return n+" "+lbl+(n===1?"":"s"); },
+  th_time:"Time", th_activity:"Activity", th_room:"Room",
+  th_committee:"Committee", th_participant:"Participant",
+  lbl_evprefix:"Evaluators: ", master_title:"Master schedule",
+  p_noact:"No activities scheduled yet.", p_nocom:"No committees yet.", p_nothing:"Nothing to show.",
+  rc_pos:"“{0}” is forced to position #{1} but only {2} exercises are in play.",
+  rc_dup:"“{0}” and “{1}” are both forced to position #{2}.",
+  rc_afterlast:"“{0}” must come after “{1}”, but “{1}” is forced to be last (#{2}).",
+  rc_cycle:"Circular “after” rule: {0}.",
+  v_lib:"Exercise library: {0}",
+  v_noparts:"{0}: no participants.", v_nosched:"{0}: no schedule yet.",
+  v_clash:function(c,n){ return c+": "+n+" double-booked slot"+(n>1?"s":"")+" (two people in non-shared rooms)."; },
+  v_over:function(c,n){ return c+": "+n+" activit"+(n>1?"ies run":"y runs")+" past the end of the day."; },
+  v_missing:"{0} · {1}: missing {2}.",
+  v_nolunch:"{0} · {1}: no lunch break.",
+  v_introfirst:"{0} · {1}: day starts with “{2}” — the {3} must come first.",
+  v_position:"{0} · {1}: {2} is exercise #{3} but must be #{4}.",
+  v_after:"{0} · {1}: {2} must come after {3}.",
+  v_ok:"✓ All checks passed — no rule problems found.",
+  v_head:function(errs,warns){ return (errs?errs+" issue"+(errs>1?"s":""):"")+(errs&&warns?" · ":"")+(warns?warns+" warning"+(warns>1?"s":""):""); }
+},
+ro:{
+  btnSave:"💾 Salvează proiectul",
+  btnSaveT:"Descarcă tot — ziua, sălile, comisiile, programul — într-un singur fișier de proiect pe care îl poți redeschide sau trimite unui coleg",
+  btnOpen:"📂 Deschide", btnOpenT:"Deschide un fișier de proiect salvat anterior",
+  btnExample:"Încarcă exemplul", btnClear:"Nou / golește",
+  step1:"Ziua", step1s:"Titlu, dată și ore",
+  step2:"Comisii și persoane", step2s:"Cine evaluează pe cine",
+  step3:"Program", step3s:"Generează, apoi ajustează",
+  step4:"Tipărire și salvare", step4s:"Agende, PDF și fișiere",
+  s1_title:"Descrie ziua",
+  lbl_title:"Titlul evenimentului", ph_title:"Centru de evaluare",
+  lbl_date:"Data", lbl_start:"Ziua începe", lbl_end:"Ziua se termină",
+  adv_grid:"Avansat: grila de timp", lbl_slot:"Durata unui slot (minute)",
+  hint_slot:"Grila programului este împărțită în sloturi de această durată. Dacă o schimbi (sau schimbi începutul/sfârșitul zilei), grila se reface — activitățile își păstrează ora și durata acolo unde mai încap.",
+  s1_rooms:"Săli și culori", btnAddRoom:"+ Adaugă sală",
+  hint_rooms:"Fiecare activitate are loc într-o sală, iar culoarea sălii de pe agenda tipărită îi spune participantului unde să meargă. Sălile implicite de mai jos acoperă o zi de evaluare obișnuită — le poți redenumi sau poți adăuga altele.",
+  adv_rooms_q:"Ce înseamnă „= comisie” și „partajată”?",
+  adv_rooms_1:"<b>= comisie</b> — sala preia automat culoarea fiecărei comisii (folosită pentru Sala de exerciții, astfel încât exercițiile fiecărei comisii apar în culoarea comisiei respective). Debifează pentru a-i da sălii o culoare fixă.",
+  adv_rooms_2:"<b>partajată</b> — mai mulți participanți pot fi în această sală în același timp (precum Sala comună). Sălile care <i>nu</i> sunt partajate declanșează un avertisment de suprapunere dacă două persoane sunt programate acolo simultan.",
+  next2:"Următorul: Comisii și persoane →", back:"← Înapoi",
+  s2_title:"Comisii", btnAddCommittee:"+ Adaugă comisie",
+  hint_committees:"O comisie este o pereche fixă de evaluatori care evaluează propriul grup de participanți pe parcursul întregii zile. Culoarea comisiei marchează sala ei de exerciții pe fiecare agendă.",
+  next3:"Următorul: Program →",
+  hero_title:"✨ Lasă aplicația să construiască ziua",
+  hero_p:"Un singur clic construiește ziua completă a fiecărei comisii — introducere, rotația exercițiilor, prânz și exercițiu de grup — fără suprapuneri. Poți muta lucrurile după aceea, iar „Verifică programul” îți spune dacă ceva încalcă regulile.",
+  btnGen:"✨ Recomandă un program", btnValidate:"✔ Verifică programul",
+  lib_summary:"Biblioteca de exerciții — ce intră într-o zi generată",
+  lib_hint:"Acestea sunt piesele din care generatorul construiește ziua. <b>pregătire</b> = minutele în care participantul se pregătește singur în sala comună; <b>desfășurare</b> = minutele în fața comisiei. Debifează <b>inclus</b> pentru a lăsa un exercițiu deoparte. <b>ordine</b> — lasă pe <i>auto</i> ca generatorul să decaleze liber participanții, sau forțează un exercițiu pe o poziție fixă (1., 2.…) în ziua fiecărui participant. <b>după</b> — forțează un exercițiu să vină mereu după altul. <i>Duratele sunt orientative până le confirmă evaluatorii.</i>",
+  btnAddEx:"+ Adaugă exercițiu",
+  s3_manual:"Ajustează manual", tt_layout:"Așezarea programului",
+  lay_h:"⬌ Orizontal", lay_v:"⬍ Vertical",
+  hint_manual:"Dă clic pe o celulă goală pentru a adăuga o activitate, sau trage peste celule goale pentru a-i stabili durata. Trage un bloc colorat pentru a-l muta; trage-i marginea pentru a-l lungi sau scurta.",
+  next4:"Următorul: Tipărire și salvare →", back_sched:"← Înapoi la program",
+  s4_title:"Previzualizare și tipărire", tt_prevWhich:"Alege ce documente previzualizezi și tipărești",
+  opt_ind:"Agende individuale — câte o pagină pentru fiecare participant",
+  opt_com:"Vederi pe comisii — câte o pagină pentru fiecare comisie",
+  opt_mas:"Grila generală — toată ziua pe o singură pagină",
+  btnPrint:"🖨 Tipărește / Salvează ca PDF", btnPrintAll:"🖨 Tipărește tot",
+  btnPrintAllT:"Tipărește agendele individuale, vederile pe comisii și grila generală dintr-o singură mișcare",
+  hint_print:"Fiecare agendă este micșorată automat ca să încapă pe <b>exact o pagină A4</b>, iar grila generală se tipărește culcat pe pagina ei — fără setări de imprimantă. În fereastra de tipărire alege <b>„Salvează ca PDF”</b> pentru a obține un fișier; dacă lipsesc culorile, bifează acolo <b>„Grafică de fundal”</b> („Background graphics”).",
+  csv_summary:"Foi de calcul (CSV) — exportă sau importă programul ca tabel",
+  btnExportCsv:"⬇ Exportă în foaie de calcul (CSV)", btnImportCsv:"⬆ Importă din foaie de calcul (CSV)",
+  btnTemplate:"📄 Descarcă un șablon gol",
+  hint_csv:"Coloane: <code>Committee, Evaluators, Participant, Activity, Room, Start, End</code> — un rând pentru fiecare activitate (sunt acceptate și denumiri românești: Comisie, Evaluatori, Participant, Activitate, Sala, Început, Sfârșit). Ca să salvezi întregul proiect, folosește <b>💾 Salvează proiectul</b> din bara de sus.",
+  md_lbl_activity:"Activitate", md_ph_name:"ex. Studiu de caz", md_lbl_dur:"Durată",
+  md_lbl_room:"Sala (stabilește culoarea)",
+  md_delete:"Șterge", md_cancel:"Anulează", md_save:"Salvează",
+  md_edit:"Editează activitatea", md_add:"Adaugă o activitate",
+  gen_title:"Recomandă un program",
+  gen_hint:"Pentru fiecare comisie se construiește o zi completă: introducere → fiecare participant trece prin exerciții prin rotație → prânz → exercițiu de grup. Folosește exercițiile bifate „inclus” din bibliotecă și nu suprapune pe nimeni.",
+  gen_lbl_waves:"Valuri de start — împarți grupul fiecărei comisii într-un start de dimineață și unul de după-amiază?",
+  gen_opt_auto:"Decide pentru mine (împarte când sunt mai mult de 2 participanți)",
+  gen_opt_1:"Nu — toți încep dimineața", gen_opt_2:"Da — întotdeauna două valuri",
+  gen_lbl_gap:"Pauză de notițe pentru evaluatori după fiecare exercițiu (minute)",
+  gen_lbl_group:"Include exercițiul de grup", gen_go:"Generează",
+  room_common:"Sala comună", room_exercise:"Sala de exerciții", room_break:"Sala de pauză",
+  room_default:"Sala {0}", committee_default:"Comisia {0}", committee_fallback:"Comisie",
+  ex_intro:"Introducere", ex_case:"Studiu de caz", ex_role:"Joc de rol", ex_fact:"Culegere de informații",
+  ex_pres:"Prezentare", ex_quiz:"Chestionar", ex_group:"Exercițiu de grup", ex_lunch:"Prânz",
+  ex_new:"Exercițiu nou",
+  suffix_copy:" (copie)", suffix_prep:" (pregătire)",
+  cat_intro:"introducere", cat_individual:"individual", cat_quiz:"chestionar", cat_group:"grup", cat_lunch:"prânz",
+  lbl_prep:"pregătire", lbl_run:"desfășurare", lbl_order:"ordine", lbl_after:"după", lbl_use:"inclus",
+  tt_prepmin:"Minute de pregătire", tt_runmin:"Minute de desfășurare",
+  tt_use:"Include în programele generate", tt_delex:"Șterge exercițiul",
+  tt_order:"Poziția în ziua fiecărui participant — auto lasă generatorul să decaleze participanții",
+  tt_after:"Forțează acest exercițiu să vină după un altul",
+  ord:function(n){ return n+"."; },
+  tt_roomAuto:"Preia culoarea comisiei — debifează „= comisie” pentru a stabili o culoare fixă",
+  tt_roomPick:"Alege culoarea sălii",
+  lbl_eqcommittee:"= comisie", lbl_shared:"partajată",
+  tt_shared:"Mai mulți participanți pot fi aici în același timp (nu declanșează avertisment de suprapunere)",
+  tt_remroom:"Șterge sala",
+  es_sched:"Încă nu e nimic de programat — mai întâi adaugă o comisie și participanții ei.",
+  es_go2:"Mergi la pasul 2: Comisii și persoane", es_example:"Încarcă un exemplu complet",
+  es_people:"Nicio comisie încă. Apasă „+ Adaugă comisie” mai sus pentru a o crea pe prima — primești doi participanți de redenumit.",
+  tt_ccolor:"Culoarea comisiei — marchează sala de exerciții a acestei comisii pe fiecare agendă",
+  ph_cname:"Numele comisiei", btn_dup:"⧉ Duplică",
+  tt_dupc:"Copiază această comisie cu participanții și programul ei", btn_remove:"Șterge",
+  confirm_removec:"Ștergi comisia „{0}” și programul ei?",
+  lbl_evaluators:"Evaluatori — cei doi evaluatori ai acestei comisii",
+  ph_evaluators:"ex. Ana Pop, Mihai Ion",
+  lbl_participants:"Participanți ({0})", ph_pname:"Numele participantului",
+  tt_dupp:"Duplică acest participant și programul lui",
+  tt_dupp2:"Duplică programul acestui participant", tt_remp:"Șterge participantul",
+  btn_addp:"+ Adaugă participant", btn_editp:"✎ Editează persoanele",
+  tt_editp:"Redenumește această comisie, schimbă-i culoarea sau adaugă/șterge participanți (pasul 2)",
+  hint_grid_empty:"Grila este goală — verifică începutul zilei, sfârșitul zilei și durata slotului la pasul 1.",
+  hint_no_parts:"Această comisie nu are încă participanți — adaugă-i la pasul 2.",
+  hint_cell:"Dă clic pe o celulă pentru a adăuga o activitate, sau dă clic și trage peste celule goale pentru a-i stabili durata. Dă clic pe un bloc colorat pentru a-l edita.",
+  clash_warn:function(n){ return "⚠ Suprapunere: "+n+(n===1?" interval orar":" intervale orare")+" cu doi participanți în săli nepartajate în același timp"; },
+  tt_block:" — trage pentru a muta, trage de margine pentru a redimensiona",
+  tt_free:"Liber / timp mort — dă clic sau trage",
+  grid_time:"Ora", grid_participant:"Participant",
+  opt_slots:function(s,min){ return (s===1?"1 slot":s+" sloturi")+" ("+min+" min)"; },
+  opt_newroom:"➕ Sală nouă…", prompt_newroom:"Numele noii săli:",
+  toast_loaded:"Proiect încărcat",
+  alert_badfile:"Fișierul nu pare a fi un proiect valid.",
+  alert_csvempty:"CSV-ul pare gol.",
+  alert_csvcols:"CSV-ul trebuie să aibă cel puțin coloanele Comisie, Participant, Activitate, Început (sau Committee, Participant, Activity, Start).",
+  toast_imported:"S-au importat {0} rânduri",
+  alert_daytimes:"Setează mai întâi un început/sfârșit de zi și o durată de slot valide.",
+  alert_needrooms:"E nevoie de cel puțin o sală comună și o sală de exerciții.",
+  alert_conflicts:"Regulile de ordonare a exercițiilor se contrazic — rezolvă-le mai întâi în biblioteca de exerciții:\n\n• ",
+  confirm_replace:"Înlocuiești programul curent pentru toate comisiile?",
+  confirm_clear:"Ștergi tot și începi de la zero?",
+  toast_example:"Exemplu încărcat — programul a fost generat automat",
+  example_title:"Centru de evaluare",
+  prevcount:function(n,which){
+    if(which==="individual") return n===1?"1 agendă":n+" agende";
+    if(which==="committee") return n===1?"1 comisie":n+" comisii";
+    return n===1?"1 pagină":n+" pagini";
+  },
+  th_time:"Ora", th_activity:"Activitatea", th_room:"Sala",
+  th_committee:"Comisia", th_participant:"Participant",
+  lbl_evprefix:"Evaluatori: ", master_title:"Programul general",
+  p_noact:"Nicio activitate programată încă.", p_nocom:"Nicio comisie încă.", p_nothing:"Nimic de afișat.",
+  rc_pos:"„{0}” este forțat pe poziția #{1}, dar doar {2} exerciții sunt în joc.",
+  rc_dup:"„{0}” și „{1}” sunt forțate amândouă pe poziția #{2}.",
+  rc_afterlast:"„{0}” trebuie să vină după „{1}”, dar „{1}” este forțat să fie ultimul (#{2}).",
+  rc_cycle:"Regulă „după” circulară: {0}.",
+  v_lib:"Biblioteca de exerciții: {0}",
+  v_noparts:"{0}: fără participanți.", v_nosched:"{0}: încă fără program.",
+  v_clash:function(c,n){ return c+": "+n+(n===1?" slot suprapus":" sloturi suprapuse")+" (două persoane în săli nepartajate)."; },
+  v_over:function(c,n){ return c+": "+(n===1?"o activitate depășește":n+" activități depășesc")+" sfârșitul zilei."; },
+  v_missing:"{0} · {1}: lipsesc {2}.",
+  v_nolunch:"{0} · {1}: fără pauză de prânz.",
+  v_introfirst:"{0} · {1}: ziua începe cu „{2}” — {3} trebuie să fie prima activitate.",
+  v_position:"{0} · {1}: {2} este exercițiul #{3}, dar trebuie să fie #{4}.",
+  v_after:"{0} · {1}: {2} trebuie să vină după {3}.",
+  v_ok:"✓ Toate verificările au trecut — nicio problemă de reguli.",
+  v_head:function(errs,warns){
+    var e=errs?(errs===1?"1 problemă":errs+" probleme"):"";
+    var w=warns?(warns===1?"1 avertisment":warns+" avertismente"):"";
+    return e+(e&&w?" · ":"")+w;
+  }
+}
+};
+var LANG=(function(){ try{ var l=localStorage.getItem("agendaGenLang"); if(l==="en"||l==="ro") return l; }catch(e){} return "ro"; })();
+function t(key){
+  var s=I18N[LANG]?I18N[LANG][key]:undefined;
+  if(s===undefined) s=I18N.en[key];
+  var args=Array.prototype.slice.call(arguments,1);
+  if(typeof s==="function") return s.apply(null,args);
+  if(s===undefined) return key;
+  return s.replace(/\{(\d+)\}/g,function(m,i){ return args[+i]!==undefined?String(args[+i]):m; });
+}
+function applyStaticLang(){
+  document.documentElement.lang=LANG;
+  Array.prototype.forEach.call(document.querySelectorAll("[data-i18n]"),function(n){ n.textContent=t(n.getAttribute("data-i18n")); });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-i18n-html]"),function(n){ n.innerHTML=t(n.getAttribute("data-i18n-html")); });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-i18n-title]"),function(n){ n.title=t(n.getAttribute("data-i18n-title")); });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-i18n-placeholder]"),function(n){ n.placeholder=t(n.getAttribute("data-i18n-placeholder")); });
+}
+function syncLangToggle(){
+  Array.prototype.forEach.call(document.querySelectorAll("#langToggle button"),function(b){ b.classList.toggle("active",b.dataset.lang===LANG); });
+}
+function setLang(l){
+  if(l!==LANG&&(l==="en"||l==="ro")){
+    LANG=l;
+    try{ localStorage.setItem("agendaGenLang",l); }catch(e){}
+  }
+  applyStaticLang(); syncLangToggle();
+  if(typeof state!=="undefined"){
+    renderRooms(); renderLibrary(); renderCommittees(); refreshPreview();
+    var vb=document.getElementById("valresults");
+    if(vb&&vb.innerHTML) renderValidator();
+  }
+}
 
 /* ---------- state ---------- */
 var COLORS = ["#a5d8ff","#b2f2bb","#ffd8a8","#d0bfff","#ffc9c9","#ffec99","#99e9f2","#fcc2d7","#c3fae8","#bac8ff"];
@@ -450,9 +755,9 @@ function blankState(){
     committees:[]
   };
   s.rooms=[
-    {id:nid(),name:"Common room",color:"#a5d8ff",shared:true},
-    {id:nid(),name:"Exercise room",color:EXERCISE_PLACEHOLDER,followsCommittee:true,shared:false},
-    {id:nid(),name:"Break room",color:"#ef4136",shared:true}
+    {id:nid(),name:t("room_common"),color:"#a5d8ff",shared:true},
+    {id:nid(),name:t("room_exercise"),color:EXERCISE_PLACEHOLDER,followsCommittee:true,shared:false},
+    {id:nid(),name:t("room_break"),color:"#ef4136",shared:true}
   ];
   s.exercises=seedExercises();
   return s;
@@ -462,14 +767,14 @@ function nid(){ return "id"+(uid++); }
 /* ---------- exercise library (placeholder specs for demo — confirm with assessors) ---------- */
 function seedExercises(){
   return [
-    {id:nid(),name:"Introduction",cat:"intro",prepMin:0,runMin:15,include:true,order:"auto",afterId:null},
-    {id:nid(),name:"Case study",cat:"individual",prepMin:30,runMin:30,include:true,order:"auto",afterId:null},
-    {id:nid(),name:"Role play",cat:"individual",prepMin:15,runMin:15,include:true,order:"auto",afterId:null},
-    {id:nid(),name:"Fact finding",cat:"individual",prepMin:15,runMin:15,include:true,order:"auto",afterId:null},
-    {id:nid(),name:"Presentation",cat:"individual",prepMin:15,runMin:15,include:true,order:"auto",afterId:null},
-    {id:nid(),name:"Questionnaire",cat:"quiz",prepMin:0,runMin:30,include:true,order:"auto",afterId:null},
-    {id:nid(),name:"Group exercise",cat:"group",prepMin:0,runMin:30,include:true,order:"auto",afterId:null},
-    {id:nid(),name:"Lunch",cat:"lunch",prepMin:0,runMin:30,include:true,order:"auto",afterId:null}
+    {id:nid(),name:t("ex_intro"),cat:"intro",prepMin:0,runMin:15,include:true,order:"auto",afterId:null},
+    {id:nid(),name:t("ex_case"),cat:"individual",prepMin:30,runMin:30,include:true,order:"auto",afterId:null},
+    {id:nid(),name:t("ex_role"),cat:"individual",prepMin:15,runMin:15,include:true,order:"auto",afterId:null},
+    {id:nid(),name:t("ex_fact"),cat:"individual",prepMin:15,runMin:15,include:true,order:"auto",afterId:null},
+    {id:nid(),name:t("ex_pres"),cat:"individual",prepMin:15,runMin:15,include:true,order:"auto",afterId:null},
+    {id:nid(),name:t("ex_quiz"),cat:"quiz",prepMin:0,runMin:30,include:true,order:"auto",afterId:null},
+    {id:nid(),name:t("ex_group"),cat:"group",prepMin:0,runMin:30,include:true,order:"auto",afterId:null},
+    {id:nid(),name:t("ex_lunch"),cat:"lunch",prepMin:0,runMin:30,include:true,order:"auto",afterId:null}
   ];
 }
 var EX_CATS=["intro","individual","quiz","group","lunch"];
@@ -520,14 +825,14 @@ function ruleConflicts(){
   inds.forEach(function(e){
     var o=exOrder(e);
     if(o!=="auto"){
-      if(+o>inds.length) msgs.push("“"+e.name+"” is forced to position #"+o+" but only "+inds.length+" exercises are in play.");
-      if(seenPos[o]) msgs.push("“"+seenPos[o]+"” and “"+e.name+"” are both forced to position #"+o+".");
+      if(+o>inds.length) msgs.push(t("rc_pos",e.name,o,inds.length));
+      if(seenPos[o]) msgs.push(t("rc_dup",seenPos[o],e.name,o));
       else seenPos[o]=e.name;
     }
     if(e.afterId){
-      var t=inds.filter(function(x){return x.id===e.afterId;})[0];
-      if(t&&exOrder(t)!=="auto"&&+t.order>=inds.length)
-        msgs.push("“"+e.name+"” must come after “"+t.name+"”, but “"+t.name+"” is forced to be last (#"+t.order+").");
+      var tgt=inds.filter(function(x){return x.id===e.afterId;})[0];
+      if(tgt&&exOrder(tgt)!=="auto"&&+tgt.order>=inds.length)
+        msgs.push(t("rc_afterlast",e.name,tgt.name,tgt.order));
     }
   });
   inds.forEach(function(e){
@@ -537,7 +842,7 @@ function ruleConflicts(){
       if(!cur) break;
       if(cur===e){
         var key=path.slice().sort().join("|");
-        if(!seenCycle[key]){ seenCycle[key]=1; msgs.push("Circular “after” rule: "+path.concat(e.name).join(" → ")+"."); }
+        if(!seenCycle[key]){ seenCycle[key]=1; msgs.push(t("rc_cycle",path.concat(e.name).join(" → "))); }
         break;
       }
       path.push(cur.name);
@@ -547,9 +852,9 @@ function ruleConflicts(){
 }
 function slotsForMin(min){ var s=+state.meta.slot||15; return Math.max(0,Math.round((+min||0)/s)); }
 function roomRole(role){
-  if(role==="exercise") return state.rooms.filter(function(r){return r.followsCommittee;})[0] || roomByName("Exercise room") || state.rooms[0];
-  if(role==="break") return roomByName("Break room") || state.rooms.filter(function(r){return /break|pauz|lunch|pran/i.test(r.name);})[0] || null;
-  return roomByName("Common room") || state.rooms.filter(function(r){return r.shared && !/break|pauz|lunch|pran/i.test(r.name);})[0] || state.rooms[0];
+  if(role==="exercise") return state.rooms.filter(function(r){return r.followsCommittee;})[0] || roomByName("Exercise room") || roomByName("Sala de exerciții") || state.rooms[0];
+  if(role==="break") return roomByName("Break room") || roomByName("Sala de pauză") || state.rooms.filter(function(r){return /break|pauz|lunch|pran/i.test(r.name);})[0] || null;
+  return roomByName("Common room") || roomByName("Sala comună") || state.rooms.filter(function(r){return r.shared && !/break|pauz|lunch|pran/i.test(r.name);})[0] || state.rooms[0];
 }
 
 /* ---------- rooms ---------- */
@@ -569,7 +874,7 @@ function entryColor(e,committee){
 }
 function entryRoomName(e){ var r=e.roomId?findRoom(e.roomId):null; return r?r.name:""; }
 function nextRoomColor(){ return COLORS[state.rooms.length%COLORS.length]; }
-function addRoom(name,color){ var r={id:nid(),name:name||("Room "+(state.rooms.length+1)),color:color||nextRoomColor()}; state.rooms.push(r); return r; }
+function addRoom(name,color){ var r={id:nid(),name:name||t("room_default",state.rooms.length+1),color:color||nextRoomColor()}; state.rooms.push(r); return r; }
 function nextCommitteeColor(){ return COMMITTEE_COLORS[state.committees.length%COMMITTEE_COLORS.length]; }
 function roomsUsedInEntries(ents){
   var seen={},out=[];
@@ -599,7 +904,7 @@ function defaultColor(name){
 
 /* ---------- committee / entry helpers ---------- */
 function addCommittee(name){
-  var c={id:nid(),name:name||("Committee "+(state.committees.length+1)),evaluators:"",color:nextCommitteeColor(),
+  var c={id:nid(),name:name||t("committee_default",state.committees.length+1),evaluators:"",color:nextCommitteeColor(),
     participants:[], entries:[]};
   c.participants.push({id:nid(),name:"P1"});
   c.participants.push({id:nid(),name:"P2"});
@@ -640,7 +945,7 @@ function committeeConflicts(c){
   return {slots:slots, slotCount:cnt};
 }
 function duplicateParticipant(c,p){
-  var np={id:nid(),name:p.name+" (copy)"};
+  var np={id:nid(),name:p.name+t("suffix_copy")};
   var idx=c.participants.indexOf(p);
   c.participants.splice(idx+1,0,np);
   c.entries.filter(function(e){return e.pid===p.id;}).forEach(function(e){
@@ -648,7 +953,7 @@ function duplicateParticipant(c,p){
   });
 }
 function duplicateCommittee(c){
-  var nc={id:nid(),name:c.name+" (copy)",evaluators:c.evaluators,color:nextCommitteeColor(),participants:[],entries:[]};
+  var nc={id:nid(),name:c.name+t("suffix_copy"),evaluators:c.evaluators,color:nextCommitteeColor(),participants:[],entries:[]};
   var map={};
   c.participants.forEach(function(p){ var np={id:nid(),name:p.name}; map[p.id]=np.id; nc.participants.push(np); });
   c.entries.forEach(function(e){ nc.entries.push({pid:map[e.pid],start:e.start,span:e.span,name:e.name,roomId:e.roomId||null,color:e.color}); });
@@ -809,19 +1114,19 @@ function renderRooms(){
     var chip=ce("div","room-chip");
     var col=ce("button","swatch-btn"); col.style.background=(rm.color&&rm.color[0]==="#")?rm.color:EXERCISE_PLACEHOLDER;
     col.disabled=!!rm.followsCommittee;
-    col.title=rm.followsCommittee?"Following committee colour — untick “= committee” to set a fixed colour":"Pick room colour";
+    col.title=rm.followsCommittee?t("tt_roomAuto"):t("tt_roomPick");
     col.onclick=function(ev){ ev.preventDefault(); if(rm.followsCommittee) return;
       openColorPopover(col,rm.color,function(hex){ rm.color=hex; rm.followsCommittee=false; col.style.background=hex; renderCommittees(); refreshPreview(); }); };
     var nm=ce("input","rname"); nm.value=rm.name; nm.oninput=function(){ rm.name=nm.value; autosave(); };
     var auto=ce("label","autolab");
     var cb=document.createElement("input"); cb.type="checkbox"; cb.checked=!!rm.followsCommittee;
     cb.onchange=function(){ rm.followsCommittee=cb.checked; if(cb.checked&&(!rm.color||rm.color[0]!=="#")) rm.color=EXERCISE_PLACEHOLDER; renderRooms(); renderLibrary(); renderCommittees(); refreshPreview(); };
-    auto.appendChild(cb); auto.appendChild(ce("span",null,"= committee"));
-    var sh=ce("label","autolab"); sh.title="Multiple participants can be here at once (won't trigger a clash warning)";
+    auto.appendChild(cb); auto.appendChild(ce("span",null,t("lbl_eqcommittee")));
+    var sh=ce("label","autolab"); sh.title=t("tt_shared");
     var scb=document.createElement("input"); scb.type="checkbox"; scb.checked=!!rm.shared;
     scb.onchange=function(){ rm.shared=scb.checked; renderCommittees(); refreshPreview(); autosave(); };
-    sh.appendChild(scb); sh.appendChild(ce("span",null,"shared"));
-    var del=ce("button","rm","✕"); del.title="Remove room";
+    sh.appendChild(scb); sh.appendChild(ce("span",null,t("lbl_shared")));
+    var del=ce("button","rm","✕"); del.title=t("tt_remroom");
     del.onclick=function(){
       state.rooms=state.rooms.filter(function(x){return x!==rm;});
       state.committees.forEach(function(c){c.entries.forEach(function(e){ if(e.roomId===rm.id){ e.roomId=null; } });});
@@ -839,11 +1144,11 @@ function renderCommittees(){
   if(state.committees.length===0){
     var es=ce("div","empty-state");
     es.appendChild(ce("div","big-ico","🗓"));
-    es.appendChild(ce("p",null,"Nothing to schedule yet — first add a committee and its participants."));
+    es.appendChild(ce("p",null,t("es_sched")));
     var row=ce("div","row");
-    var b1=ce("button",null,"Go to step 2: Committees & people");
+    var b1=ce("button",null,t("es_go2"));
     b1.onclick=function(){ goStep(2); };
-    var b2=ce("button","ghost","Load a full example");
+    var b2=ce("button","ghost",t("es_example"));
     b2.onclick=loadExample;
     row.appendChild(b1); row.appendChild(b2); es.appendChild(row);
     wrap.appendChild(es);
@@ -860,7 +1165,7 @@ function renderPeople(){
   if(state.committees.length===0){
     var es=ce("div","empty-state");
     es.appendChild(ce("div","big-ico","👥"));
-    es.appendChild(ce("p",null,"No committees yet. Click “+ Add committee” above to create the first one — you'll get two participants to rename."));
+    es.appendChild(ce("p",null,t("es_people")));
     wrap.appendChild(es);
     return;
   }
@@ -869,39 +1174,39 @@ function renderPeople(){
     var head=ce("div","chead");
     if(!c.color) c.color=nextCommitteeColor();
     var ccol=ce("button","swatch-btn ccolor"); ccol.style.background=c.color;
-    ccol.title="Committee colour — marks this committee's exercise room on every agenda";
+    ccol.title=t("tt_ccolor");
     ccol.onclick=function(ev){ ev.preventDefault();
       openColorPopover(ccol,c.color,function(hex){ c.color=hex; ccol.style.background=hex; autosave(); refreshPreview(); }); };
-    var nameIn=ce("input","cname"); nameIn.value=c.name; nameIn.placeholder="Committee name";
+    var nameIn=ce("input","cname"); nameIn.value=c.name; nameIn.placeholder=t("ph_cname");
     nameIn.oninput=function(){c.name=nameIn.value;autosave();};
-    var dup=ce("button","tiny ghost","⧉ Duplicate"); dup.title="Copy this committee with its participants and schedule";
+    var dup=ce("button","tiny ghost",t("btn_dup")); dup.title=t("tt_dupc");
     dup.onclick=function(){ duplicateCommittee(c); renderCommittees(); refreshPreview(); };
-    var rm=ce("button","tiny danger","Remove");
-    rm.onclick=function(){ if(confirm("Remove committee “"+c.name+"” and its schedule?")){ state.committees=state.committees.filter(function(x){return x!==c;}); renderCommittees(); refreshPreview(); } };
+    var rm=ce("button","tiny danger",t("btn_remove"));
+    rm.onclick=function(){ if(confirm(t("confirm_removec",c.name))){ state.committees=state.committees.filter(function(x){return x!==c;}); renderCommittees(); refreshPreview(); } };
     head.appendChild(ccol); head.appendChild(nameIn); head.appendChild(dup); head.appendChild(rm);
     box.appendChild(head);
     var evWrap=ce("div");
-    var evLab=ce("label",null,"Evaluators — the two assessors on this committee");
+    var evLab=ce("label",null,t("lbl_evaluators"));
     var evIn=ce("input"); evIn.style.width="100%";
-    evIn.value=c.evaluators; evIn.placeholder="e.g. Ana Pop, Mihai Ion";
+    evIn.value=c.evaluators; evIn.placeholder=t("ph_evaluators");
     evIn.oninput=function(){c.evaluators=evIn.value;autosave();};
     evWrap.appendChild(evLab); evWrap.appendChild(evIn);
     box.appendChild(evWrap);
-    box.appendChild(ce("div","psec-lab","Participants ("+c.participants.length+")"));
+    box.appendChild(ce("div","psec-lab",t("lbl_participants",c.participants.length)));
     var list=ce("div","plist");
     c.participants.forEach(function(p){
       var row=ce("div","prow");
-      var pin=ce("input"); pin.value=p.name; pin.placeholder="Participant name";
+      var pin=ce("input"); pin.value=p.name; pin.placeholder=t("ph_pname");
       pin.oninput=function(){p.name=pin.value;autosave();};
-      var pd=ce("button","tiny ghost","⧉"); pd.title="Duplicate this participant and their schedule";
+      var pd=ce("button","tiny ghost","⧉"); pd.title=t("tt_dupp");
       pd.onclick=function(){ duplicateParticipant(c,p); renderCommittees(); refreshPreview(); };
-      var px=ce("button","tiny ghost","✕"); px.title="Remove participant";
+      var px=ce("button","tiny ghost","✕"); px.title=t("tt_remp");
       px.onclick=function(){ c.participants=c.participants.filter(function(x){return x!==p;}); c.entries=c.entries.filter(function(e){return e.pid!==p.id;}); renderCommittees(); refreshPreview(); };
       row.appendChild(pin); row.appendChild(pd); row.appendChild(px);
       list.appendChild(row);
     });
     box.appendChild(list);
-    var addP=ce("button","tiny ghost","+ Add participant"); addP.style.marginTop="8px";
+    var addP=ce("button","tiny ghost",t("btn_addp")); addP.style.marginTop="8px";
     addP.onclick=function(){ c.participants.push({id:nid(),name:"P"+(c.participants.length+1)}); renderCommittees(); };
     box.appendChild(addP);
     wrap.appendChild(box);
@@ -913,30 +1218,30 @@ function renderCommittee(c){
   var head=ce("div","chead");
   if(!c.color) c.color=nextCommitteeColor();
   var dot=ce("span"); dot.style.cssText="width:18px;height:18px;border-radius:5px;border:1px solid rgba(0,0,0,.15);flex:none;background:"+c.color;
-  var ttl=ce("span",null,c.name||"Committee"); ttl.style.fontWeight="700";
+  var ttl=ce("span",null,c.name||t("committee_fallback")); ttl.style.fontWeight="700";
   head.appendChild(dot); head.appendChild(ttl);
   if(c.evaluators){ var ev=ce("span","muted","· "+c.evaluators); ev.style.fontSize="12px"; head.appendChild(ev); }
   var sp=ce("span"); sp.style.flex="1"; head.appendChild(sp);
-  var edit=ce("button","tiny ghost","✎ Edit people"); edit.title="Rename this committee, change its colour, or add/remove participants (step 2)";
+  var edit=ce("button","tiny ghost",t("btn_editp")); edit.title=t("tt_editp");
   edit.onclick=function(){ goStep(2); };
   head.appendChild(edit);
   box.appendChild(head);
 
   var N=slotCount();
-  if(N<=0){ box.appendChild(ce("p","hint","The grid is empty — check the day start, day end and slot size in step 1.")); return box; }
-  if(c.participants.length===0){ box.appendChild(ce("p","hint","This committee has no participants yet — add them in step 2.")); return box; }
+  if(N<=0){ box.appendChild(ce("p","hint",t("hint_grid_empty"))); return box; }
+  if(c.participants.length===0){ box.appendChild(ce("p","hint",t("hint_no_parts"))); return box; }
 
   var conf=committeeConflicts(c);
   if(conf.slotCount>0){
     var warn=ce("div"); warn.style.margin="2px 0 10px";
-    warn.appendChild(ce("span","clash-warn","⚠ Double-booked: "+conf.slotCount+" time slot"+(conf.slotCount>1?"s":"")+" with two participants in non-shared rooms at once"));
+    warn.appendChild(ce("span","clash-warn",t("clash_warn",conf.slotCount)));
     box.appendChild(warn);
   }
 
   var scroll=ce("div","grid-scroll");
   scroll.appendChild(editLayout()==="vertical" ? vertGrid(c,N,conf) : horizGrid(c,N,conf));
   box.appendChild(scroll);
-  box.appendChild(ce("p","hint","Click a cell to add an activity, or click-and-drag across empty cells to set its length. Click a coloured block to edit it."));
+  box.appendChild(ce("p","hint",t("hint_cell")));
   return box;
 }
 
@@ -946,9 +1251,9 @@ function pnameCell(c,p,tag){
   var cell=ce(tag||"td","pstub-edit");
   var wrap=ce("div","colhdr");
   var pin=ce("input","pname-edit"); pin.value=p.name; pin.oninput=function(){p.name=pin.value;autosave();};
-  var dup=ce("button","tiny ghost rm","⧉"); dup.title="Duplicate this participant's schedule";
+  var dup=ce("button","tiny ghost rm","⧉"); dup.title=t("tt_dupp2");
   dup.onclick=function(){ duplicateParticipant(c,p); renderCommittees(); refreshPreview(); };
-  var del=ce("button","tiny ghost rm","✕"); del.title="Remove participant";
+  var del=ce("button","tiny ghost rm","✕"); del.title=t("tt_remp");
   del.onclick=function(){ c.participants=c.participants.filter(function(x){return x!==p;}); c.entries=c.entries.filter(function(e){return e.pid!==p.id;}); renderCommittees(); refreshPreview(); };
   var acts=ce("div","pacts"); acts.appendChild(dup); acts.appendChild(del);
   wrap.appendChild(pin); wrap.appendChild(acts); cell.appendChild(wrap);
@@ -961,13 +1266,13 @@ function fillCell(c,p,e,idx){
     td.style.background=entryColor(e,c);
     td.appendChild(ce("span",null,e.name));
     var rn=entryRoomName(e);
-    td.title=rangeLabel(e.start,e.span)+" · "+e.name+(rn?(" · "+rn):"")+" — drag to move, drag the edge to resize";
+    td.title=rangeLabel(e.start,e.span)+" · "+e.name+(rn?(" · "+rn):"")+t("tt_block");
     var hz=ce("div","rz "+(editLayout()==="vertical"?"rz-v":"rz-h"));
     td.appendChild(hz);
     hz.onmousedown=function(ev){ ev.stopPropagation(); startOp("resize",c,p,e,td,ev,e.start); };
     td.onmousedown=function(ev){ if(ev.target===hz) return; startOp("move",c,p,e,td,ev,e.start); };
   }else{
-    td.classList.add("empty","downtime"); td.textContent="+"; td.title="Free / downtime — click or drag";
+    td.classList.add("empty","downtime"); td.textContent="+"; td.title=t("tt_free");
     td.onmousedown=function(ev){ startOp("create",c,p,null,td,ev,idx); };
   }
   return td;
@@ -977,7 +1282,7 @@ function fillCell(c,p,e,idx){
 function vertGrid(c,N,conf){
   var tbl=ce("table","sched vert");
   var thead=ce("thead"); var hr=ce("tr");
-  hr.appendChild(ce("th",null,"Time"));
+  hr.appendChild(ce("th",null,t("grid_time")));
   c.participants.forEach(function(p){ hr.appendChild(pnameCell(c,p,"th")); });
   thead.appendChild(hr); tbl.appendChild(thead);
   var tbody=ce("tbody");
@@ -1005,7 +1310,7 @@ function vertGrid(c,N,conf){
 function horizGrid(c,N,conf){
   var tbl=ce("table","sched horiz");
   var thead=ce("thead"); var hr=ce("tr");
-  hr.appendChild(ce("th","corner","Participant"));
+  hr.appendChild(ce("th","corner",t("grid_participant")));
   for(var idx=0;idx<N;idx++){ var th=ce("th","tcol",fromMin(slotStartMin(idx)));
     if(conf.slots[idx]) th.classList.add("clash-time");
     else if(!committeeBusyAt(c,idx)) th.classList.add("downtime-time"); hr.appendChild(th); }
@@ -1031,14 +1336,14 @@ function horizGrid(c,N,conf){
 var modalCtx=null;
 function openModal(c,pid,start,existing,presetSpan){
   modalCtx={c:c,pid:pid,start:start,existing:existing};
-  el("mdTitle").textContent=existing?"Edit activity":"Add activity";
+  el("mdTitle").textContent=existing?t("md_edit"):t("md_add");
   el("mdName").value=existing?existing.name:"";
   // span options: how many slots fit before next entry / end
   var N=slotCount(); var maxSpan=N-start;
   for(var i=0;i<c.entries.length;i++){var e=c.entries[i];
     if(e.pid===pid&&e.start>start&&(!existing||e.start!==existing.start)){ maxSpan=Math.min(maxSpan,e.start-start); }}
   var sel=el("mdSpan"); sel.innerHTML="";
-  for(var s=1;s<=maxSpan;s++){ var o=ce("option",null,s+" slot"+(s>1?"s":"")+" ("+(s*state.meta.slot)+" min)"); o.value=s; sel.appendChild(o); }
+  for(var s=1;s<=maxSpan;s++){ var o=ce("option",null,t("opt_slots",s,s*state.meta.slot)); o.value=s; sel.appendChild(o); }
   sel.value=String(existing?Math.min(existing.span,maxSpan):(presetSpan?Math.min(presetSpan,maxSpan):1));
   updateSpanInfo();
   sel.onchange=updateSpanInfo;
@@ -1052,12 +1357,12 @@ function openModal(c,pid,start,existing,presetSpan){
 function buildRoomSelect(selId){
   var sel=el("mdRoom"); sel.innerHTML="";
   state.rooms.forEach(function(r){ var o=ce("option",null,r.name); o.value=r.id; sel.appendChild(o); });
-  var oNew=ce("option",null,"➕ New room…"); oNew.value="__new"; sel.appendChild(oNew);
+  var oNew=ce("option",null,t("opt_newroom")); oNew.value="__new"; sel.appendChild(oNew);
   if(selId && findRoom(selId)) sel.value=selId; else if(state.rooms[0]) sel.value=state.rooms[0].id;
   updateRoomPreview();
   sel.onchange=function(){
     if(sel.value==="__new"){
-      var nm=prompt("New room name:");
+      var nm=prompt(t("prompt_newroom"));
       if(nm){ var r=addRoom(nm.trim()); renderRooms(); buildRoomSelect(r.id); }
       else { sel.value=state.rooms[0]?state.rooms[0].id:""; }
     }
@@ -1142,23 +1447,23 @@ function buildIndividual(){
           "<td class='room'>"+esc(rn)+"</td></tr>";
       }).join("");
       var eyebrow=[esc(state.meta.title||""), esc(state.meta.date)].filter(Boolean).join(" · ");
-      var pmeta=[esc(c.name), c.evaluators?("Evaluators: "+esc(c.evaluators)):""].filter(Boolean).join(" · ");
+      var pmeta=[esc(c.name), c.evaluators?(t("lbl_evprefix")+esc(c.evaluators)):""].filter(Boolean).join(" · ");
       pages.push("<div class='page portrait'><div class='agenda-doc'>"+
         (eyebrow?"<div class='eyebrow'>"+eyebrow+"</div>":"")+
         "<h1 class='pname'>"+esc(p.name)+"</h1>"+
         (pmeta?"<div class='pmeta'>"+pmeta+"</div>":"")+
         legendHTML(roomsUsedInEntries(ents),c)+
-        "<table class='print-tbl'><thead><tr><th>Time</th><th>Activity</th><th>Room</th></tr></thead><tbody>"+rows+"</tbody></table>"+
+        "<table class='print-tbl'><thead><tr><th>"+t("th_time")+"</th><th>"+t("th_activity")+"</th><th>"+t("th_room")+"</th></tr></thead><tbody>"+rows+"</tbody></table>"+
         docFoot()+"</div></div>");
     });
   });
-  if(pages.length===0) pages.push("<div class='page portrait'><div class='agenda-doc'><p>No activities scheduled yet.</p></div></div>");
+  if(pages.length===0) pages.push("<div class='page portrait'><div class='agenda-doc'><p>"+t("p_noact")+"</p></div></div>");
   return pages.join("");
 }
 
 function committeeGridHTML(c){
   var N=slotCount();
-  var ths="<th>Time</th>"+c.participants.map(function(p){return "<th>"+esc(p.name)+"</th>";}).join("");
+  var ths="<th>"+t("th_time")+"</th>"+c.participants.map(function(p){return "<th>"+esc(p.name)+"</th>";}).join("");
   var body="";
   for(var idx=0;idx<N;idx++){
     var anyBelow=c.participants.some(function(p){ return c.entries.some(function(e){return e.pid===p.id&&idx>=e.start;}); });
@@ -1173,21 +1478,21 @@ function committeeGridHTML(c){
     });
     body+="<tr>"+tr+"</tr>";
   }
-  var sub=[esc(c.name), c.evaluators?("Evaluators: "+esc(c.evaluators)):"", esc(state.meta.date)].filter(Boolean).join(" · ");
-  return "<div class='page portrait'><div class='agenda-doc'><h2>"+esc(state.meta.title||"Committee")+"</h2><div class='sub'>"+sub+"</div>"+
+  var sub=[esc(c.name), c.evaluators?(t("lbl_evprefix")+esc(c.evaluators)):"", esc(state.meta.date)].filter(Boolean).join(" · ");
+  return "<div class='page portrait'><div class='agenda-doc'><h2>"+esc(state.meta.title||t("committee_fallback"))+"</h2><div class='sub'>"+sub+"</div>"+
     legendHTML(roomsUsedInEntries(c.entries),c)+
     "<table class='print-tbl'><thead><tr>"+ths+"</tr></thead><tbody>"+body+"</tbody></table>"+docFoot()+"</div></div>";
 }
 function buildCommittee(){
-  if(state.committees.length===0) return "<div class='page portrait'><div class='agenda-doc'><p>No committees yet.</p></div></div>";
+  if(state.committees.length===0) return "<div class='page portrait'><div class='agenda-doc'><p>"+t("p_nocom")+"</p></div></div>";
   return state.committees.map(committeeGridHTML).join("");
 }
 
 function buildMaster(){
   var N=slotCount();
-  if(N<=0||state.committees.length===0) return "<div class='page landscape'><div class='agenda-doc'><p>Nothing to show.</p></div></div>";
+  if(N<=0||state.committees.length===0) return "<div class='page landscape'><div class='agenda-doc'><p>"+t("p_nothing")+"</p></div></div>";
   // HORIZONTAL: time runs across the top; committees & participants down the rows.
-  var head="<thead><tr><th class='cstub'>Committee</th><th class='cstub'>Participant</th>";
+  var head="<thead><tr><th class='cstub'>"+t("th_committee")+"</th><th class='cstub'>"+t("th_participant")+"</th>";
   for(var idx=0;idx<N;idx++){ head+="<th class='tcol'>"+esc(fromMin(slotStartMin(idx)))+"</th>"; }
   head+="</tr></thead>";
 
@@ -1222,7 +1527,7 @@ function buildMaster(){
     }).join("")+"</div>";
   }
   var sub=[esc(state.meta.title||""), esc(state.meta.date)].filter(Boolean).join(" · ");
-  return "<div class='page landscape'><div class='agenda-doc master'><h2>Master schedule</h2><div class='sub'>"+sub+"</div>"+
+  return "<div class='page landscape'><div class='agenda-doc master'><h2>"+t("master_title")+"</h2><div class='sub'>"+sub+"</div>"+
     legendHTML(roomsUsedInEntries(allEnts),null)+cleg+
     "<table class='print-tbl master-h'>"+head+"<tbody>"+body+"</tbody></table>"+docFoot()+"</div></div>";
 }
@@ -1288,8 +1593,7 @@ function refreshPreview(){
   stage.innerHTML=buildOutput(which);
   stage.classList.toggle("is-master",which==="master");
   var n=(stage.innerHTML.match(/class='page /g)||[]).length;
-  var label=which==="individual"?"agenda":(which==="committee"?"committee":"page");
-  var cnt=el("prevCount"); if(cnt) cnt.textContent=n+" "+label+(n===1?"":"s");
+  var cnt=el("prevCount"); if(cnt) cnt.textContent=t("prevcount",n,which);
 }
 
 /* ---------- save / load ---------- */
@@ -1303,8 +1607,8 @@ function saveProject(){ download((state.meta.title||"agenda")+".json", JSON.stri
 function loadProject(file){
   var r=new FileReader();
   r.onload=function(){ try{ var obj=JSON.parse(r.result); if(!obj.meta||!obj.committees) throw 0;
-    state=obj; rehydrateIds(); loadMetaInputs(); renderRooms(); renderLibrary(); renderCommittees(); goStep(stepDone(3)?3:2); toast("Project loaded"); }
-    catch(e){ alert("That doesn't look like a valid project file."); } };
+    state=obj; rehydrateIds(); loadMetaInputs(); renderRooms(); renderLibrary(); renderCommittees(); goStep(stepDone(3)?3:2); toast(t("toast_loaded")); }
+    catch(e){ alert(t("alert_badfile")); } };
   r.readAsText(file);
 }
 function rehydrateIds(){
@@ -1312,7 +1616,7 @@ function rehydrateIds(){
   state.exercises.forEach(function(e){ if(!e.id)e.id=nid(); if(e.order===undefined||e.order===null)e.order="auto"; if(e.afterId===undefined)e.afterId=null; });
   if(!state.rooms) state.rooms=[];
   state.rooms.forEach(function(r){ if(!r.id)r.id=nid();
-    if(r.shared===undefined) r.shared=/common|break|pauza|pause|lunch/i.test(r.name||""); });
+    if(r.shared===undefined) r.shared=/common|comun|break|pauz|pause|lunch|pran/i.test(r.name||""); });
   // ensure unique ids exist & uid counter is ahead
   state.committees.forEach(function(c,ci){ if(!c.id)c.id=nid(); if(!c.color)c.color=COMMITTEE_COLORS[ci%COMMITTEE_COLORS.length];
     c.participants.forEach(function(p){if(!p.id)p.id=nid();});
@@ -1356,11 +1660,16 @@ function importCsv(file){
   var r=new FileReader();
   r.onload=function(){
     var rows=parseCsv(r.result).filter(function(x){return x.some(function(v){return v.trim();});});
-    if(rows.length<2){ alert("CSV looks empty."); return; }
+    if(rows.length<2){ alert(t("alert_csvempty")); return; }
     var hdr=rows[0].map(function(h){return h.trim().toLowerCase();});
-    function col(name){ return hdr.indexOf(name); }
+    // accepts English and Romanian column names
+    var HDR_ALIASES={committee:["committee","comisie","comisia"],evaluators:["evaluators","evaluatori"],
+      participant:["participant"],activity:["activity","activitate","activitatea"],room:["room","sala","sală"],
+      start:["start","inceput","început","ora start"],end:["end","sfarsit","sfârșit","ora sfarsit"]};
+    function col(name){ var al=HDR_ALIASES[name]||[name];
+      for(var x=0;x<al.length;x++){ var ix=hdr.indexOf(al[x]); if(ix>=0) return ix; } return -1; }
     var ci=col("committee"),ei=col("evaluators"),pi=col("participant"),ai=col("activity"),ri=col("room"),si=col("start"),di=col("end");
-    if(ci<0||pi<0||ai<0||si<0){ alert("CSV must have at least Committee, Participant, Activity, Start columns."); return; }
+    if(ci<0||pi<0||ai<0||si<0){ alert(t("alert_csvcols")); return; }
     // derive slot size from gcd of all start/durations, fallback 15
     var times=[];
     for(var k=1;k<rows.length;k++){ var R=rows[k];
@@ -1382,7 +1691,7 @@ function importCsv(file){
     }
     for(var j=1;j<rows.length;j++){
       var Row=rows[j];
-      var cname=(Row[ci]||"").trim()||"Committee";
+      var cname=(Row[ci]||"").trim()||t("committee_fallback");
       var c=cmap[cname];
       if(!c){ c={id:nid(),name:cname,evaluators:ei>=0?(Row[ei]||"").trim():"",color:COMMITTEE_COLORS[ns.committees.length%COMMITTEE_COLORS.length],participants:[],entries:[],_pmap:{}}; cmap[cname]=c; ns.committees.push(c); }
       if(ei>=0 && Row[ei] && !c.evaluators) c.evaluators=Row[ei].trim();
@@ -1399,7 +1708,7 @@ function importCsv(file){
       c.entries.push({pid:p.id,start:startIdx,span:span,name:aname,roomId:roomId,color:rmObj?rmObj.color:defaultColor(aname)});
     }
     ns.committees.forEach(function(c){delete c._pmap;});
-    state=ns; loadMetaInputs(); renderRooms(); renderLibrary(); renderCommittees(); goStep(3); toast("Imported "+(rows.length-1)+" rows");
+    state=ns; loadMetaInputs(); renderRooms(); renderLibrary(); renderCommittees(); goStep(3); toast(t("toast_imported",rows.length-1));
   };
   r.readAsText(file);
 }
@@ -1411,14 +1720,14 @@ function tryRestore(){ try{ var s=localStorage.getItem("agendaGen"); if(s){ var 
 /* ---------- example data ---------- */
 function loadExample(){
   state=blankState();
-  state.meta={title:"Assessment Centre",date:"",start:"09:00",end:"18:00",slot:15};
-  var c1=addCommittee("Committee 1"); c1.evaluators="Ana Pop, Mihai Ion";
-  var c2=addCommittee("Committee 2"); c2.evaluators="Dan Radu, Ioana Stan";
+  state.meta={title:t("example_title"),date:"",start:"09:00",end:"18:00",slot:15};
+  var c1=addCommittee(t("committee_default",1)); c1.evaluators="Ana Pop, Mihai Ion";
+  var c2=addCommittee(t("committee_default",2)); c2.evaluators="Dan Radu, Ioana Stan";
   [c1,c2].forEach(function(c){ c.participants.push({id:nid(),name:"P3"},{id:nid(),name:"P4"}); });
   loadMetaInputs(); renderRooms(); renderLibrary();
   genSchedule({waves:"auto",noteGapMin:0,includeGroup:true}); // demo: full generated day (2 waves)
   goStep(3);
-  toast("Example loaded — schedule auto-generated");
+  toast(t("toast_example"));
 }
 
 /* ---------- exercise library UI ---------- */
@@ -1437,33 +1746,33 @@ function renderLibrary(){
     var row=ce("div","exrow");
     var nm=ce("input","exname"); nm.value=ex.name; nm.oninput=function(){ex.name=nm.value;autosave();}; nm.onchange=function(){renderLibrary();};
     var cat=document.createElement("select"); cat.className="excat";
-    EX_CATS.forEach(function(cc){ var o=ce("option",null,cc); o.value=cc; cat.appendChild(o); });
+    EX_CATS.forEach(function(cc){ var o=ce("option",null,t("cat_"+cc)); o.value=cc; cat.appendChild(o); });
     cat.value=ex.cat; cat.onchange=function(){ex.cat=cat.value; if(cat.value!=="individual"&&cat.value!=="quiz"){ex.order="auto";ex.afterId=null;} renderLibrary();};
-    var prep=document.createElement("input"); prep.type="number"; prep.className="exnum"; prep.value=ex.prepMin; prep.min="0"; prep.step="5"; prep.title="Prep minutes"; prep.oninput=function(){ex.prepMin=+prep.value||0;autosave();};
-    var run=document.createElement("input"); run.type="number"; run.className="exnum"; run.value=ex.runMin; run.min="0"; run.step="5"; run.title="Run minutes"; run.oninput=function(){ex.runMin=+run.value||0;autosave();};
-    var il=ce("label","exinc"); var inc=document.createElement("input"); inc.type="checkbox"; inc.checked=ex.include!==false; inc.title="Include in generated schedules"; inc.onchange=function(){ex.include=inc.checked;autosave();}; il.appendChild(inc); il.appendChild(ce("span",null,"use"));
-    var del=ce("button","rm","✕"); del.title="Remove exercise"; del.onclick=function(){ state.exercises=state.exercises.filter(function(x){return x!==ex;}); state.exercises.forEach(function(x){ if(x.afterId===ex.id) x.afterId=null; }); renderLibrary(); };
+    var prep=document.createElement("input"); prep.type="number"; prep.className="exnum"; prep.value=ex.prepMin; prep.min="0"; prep.step="5"; prep.title=t("tt_prepmin"); prep.oninput=function(){ex.prepMin=+prep.value||0;autosave();};
+    var run=document.createElement("input"); run.type="number"; run.className="exnum"; run.value=ex.runMin; run.min="0"; run.step="5"; run.title=t("tt_runmin"); run.oninput=function(){ex.runMin=+run.value||0;autosave();};
+    var il=ce("label","exinc"); var inc=document.createElement("input"); inc.type="checkbox"; inc.checked=ex.include!==false; inc.title=t("tt_use"); inc.onchange=function(){ex.include=inc.checked;autosave();}; il.appendChild(inc); il.appendChild(ce("span",null,t("lbl_use")));
+    var del=ce("button","rm","✕"); del.title=t("tt_delex"); del.onclick=function(){ state.exercises=state.exercises.filter(function(x){return x!==ex;}); state.exercises.forEach(function(x){ if(x.afterId===ex.id) x.afterId=null; }); renderLibrary(); };
     row.appendChild(nm); row.appendChild(cat);
-    row.appendChild(ce("span","exlbl","prep")); row.appendChild(prep);
-    row.appendChild(ce("span","exlbl","run")); row.appendChild(run);
+    row.appendChild(ce("span","exlbl",t("lbl_prep"))); row.appendChild(prep);
+    row.appendChild(ce("span","exlbl",t("lbl_run"))); row.appendChild(run);
     if(ex.cat==="individual"||ex.cat==="quiz"){
       var sibs=(state.exercises||[]).filter(function(x){return x.cat==="individual"||x.cat==="quiz";});
       var nSlots=sibs.length, takenPos={};
       sibs.forEach(function(x){ if(x!==ex&&exOrder(x)!=="auto") takenPos[exOrder(x)]=x.name; });
-      var ord=document.createElement("select"); ord.className="excat"; ord.title="Position in every participant's day — auto lets the generator stagger participants";
+      var ord=document.createElement("select"); ord.className="excat"; ord.title=t("tt_order");
       var oa=ce("option",null,"auto"); oa.value="auto"; ord.appendChild(oa);
-      for(var oi=1;oi<=nSlots;oi++){ var oo=ce("option",null,oi+(oi===1?"st":oi===2?"nd":oi===3?"rd":"th")); oo.value=String(oi);
+      for(var oi=1;oi<=nSlots;oi++){ var oo=ce("option",null,t("ord",oi)); oo.value=String(oi);
         if(takenPos[String(oi)]){ oo.disabled=true; oo.textContent+=" ("+takenPos[String(oi)]+")"; }
         ord.appendChild(oo); }
       ord.value=exOrder(ex);
       ord.onchange=function(){ ex.order=ord.value; if(ex.order!=="auto") ex.afterId=null; renderLibrary(); };
-      var aft=document.createElement("select"); aft.className="excat"; aft.title="Force this exercise to come after another one";
+      var aft=document.createElement("select"); aft.className="excat"; aft.title=t("tt_after");
       var an=ce("option",null,"—"); an.value=""; aft.appendChild(an);
       (state.exercises||[]).forEach(function(x){ if(x!==ex&&(x.cat==="individual"||x.cat==="quiz")&&!afterChainReaches(x,ex.id)){ var ao=ce("option",null,x.name); ao.value=x.id; aft.appendChild(ao); } });
       aft.value=ex.afterId||"";
       aft.onchange=function(){ ex.afterId=aft.value||null; if(ex.afterId) ex.order="auto"; renderLibrary(); };
-      row.appendChild(ce("span","exlbl","order")); row.appendChild(ord);
-      row.appendChild(ce("span","exlbl","after")); row.appendChild(aft);
+      row.appendChild(ce("span","exlbl",t("lbl_order"))); row.appendChild(ord);
+      row.appendChild(ce("span","exlbl",t("lbl_after"))); row.appendChild(aft);
     }
     row.appendChild(il); row.appendChild(del);
     wrap.appendChild(row);
@@ -1493,7 +1802,7 @@ function genRotate(c,parts,inds,start,exR,common,noteGap,N){
     } else {
       var ps=slotsForMin(ex.prepMin), r2=Math.max(1,slotsForMin(ex.runMin));
       var runStart=Math.max(committeeFree, pFree[p.id]+ps), prepStart=runStart-ps;
-      if(ps>0) genPush(c,p.id,prepStart,ps,ex.name+" (prep)",common.id);
+      if(ps>0) genPush(c,p.id,prepStart,ps,ex.name+t("suffix_prep"),common.id);
       genPush(c,p.id,runStart,r2,ex.name,exR.id);
       committeeFree=runStart+r2+noteGap; pFree[p.id]=runStart+r2;
     }
@@ -1503,11 +1812,11 @@ function genRotate(c,parts,inds,start,exR,common,noteGap,N){
 }
 function genSchedule(cfg){
   cfg=cfg||{};
-  var N=slotCount(); if(N<=0){ alert("Set a valid day start/end and slot size first."); return; }
+  var N=slotCount(); if(N<=0){ alert(t("alert_daytimes")); return; }
   var common=roomRole("common"), exR=roomRole("exercise"), brk=roomRole("break");
-  if(!common||!exR){ alert("Need at least a common room and an exercise room."); return; }
+  if(!common||!exR){ alert(t("alert_needrooms")); return; }
   var conflicts=ruleConflicts();
-  if(conflicts.length){ alert("The exercise ordering rules contradict each other — fix these in the exercise library first:\n\n• "+conflicts.join("\n• ")); return; }
+  if(conflicts.length){ alert(t("alert_conflicts")+conflicts.join("\n• ")); return; }
   var intro=exByCat("intro"), group=exByCat("group"), lunch=exByCat("lunch");
   var inds=inPlayIndividuals();
   var noteGap=slotsForMin(cfg.noteGapMin||0);
@@ -1538,27 +1847,27 @@ function genSchedule(cfg){
 function validateDesign(){
   var N=slotCount(), issues=[];
   var required=inPlayIndividuals().map(function(e){return e.name;});
-  ruleConflicts().forEach(function(m){ issues.push({lvl:"error",msg:"Exercise library: "+m}); });
-  if(!state.committees.length){ issues.push({lvl:"warn",msg:"No committees yet."}); return issues; }
+  ruleConflicts().forEach(function(m){ issues.push({lvl:"error",msg:t("v_lib",m)}); });
+  if(!state.committees.length){ issues.push({lvl:"warn",msg:t("p_nocom")}); return issues; }
   state.committees.forEach(function(c){
-    if(!c.participants.length){ issues.push({lvl:"warn",msg:c.name+": no participants."}); return; }
-    if(!c.entries.length){ issues.push({lvl:"warn",msg:c.name+": no schedule yet."}); return; }
+    if(!c.participants.length){ issues.push({lvl:"warn",msg:t("v_noparts",c.name)}); return; }
+    if(!c.entries.length){ issues.push({lvl:"warn",msg:t("v_nosched",c.name)}); return; }
     var conf=committeeConflicts(c);
-    if(conf.slotCount>0) issues.push({lvl:"error",msg:c.name+": "+conf.slotCount+" double-booked slot"+(conf.slotCount>1?"s":"")+" (two people in non-shared rooms)."});
+    if(conf.slotCount>0) issues.push({lvl:"error",msg:t("v_clash",c.name,conf.slotCount)});
     var over=c.entries.filter(function(e){return e.start+e.span>N;}).length;
-    if(over>0) issues.push({lvl:"error",msg:c.name+": "+over+" activit"+(over>1?"ies run":"y runs")+" past the end of the day."});
+    if(over>0) issues.push({lvl:"error",msg:t("v_over",c.name,over)});
     c.participants.forEach(function(p){
       var names={}; c.entries.forEach(function(e){ if(e.pid===p.id) names[e.name]=1; });
       var missing=required.filter(function(rn){return !names[rn];});
-      if(missing.length) issues.push({lvl:"warn",msg:c.name+" · "+p.name+": missing "+missing.join(", ")+"."});
-      if(!c.entries.some(function(e){return e.pid===p.id && /lunch|pauz|pran/i.test(e.name);})) issues.push({lvl:"warn",msg:c.name+" · "+p.name+": no lunch break."});
+      if(missing.length) issues.push({lvl:"warn",msg:t("v_missing",c.name,p.name,missing.join(", "))});
+      if(!c.entries.some(function(e){return e.pid===p.id && /lunch|pauz|pran/i.test(e.name);})) issues.push({lvl:"warn",msg:t("v_nolunch",c.name,p.name)});
       // the introduction must be every participant's first activity
       var introEx=exByCat("intro");
       if(introEx && introEx.include!==false){
         var first=null;
         c.entries.forEach(function(e){ if(e.pid===p.id && (first===null||e.start<first.start)) first=e; });
         if(first && first.name.indexOf(introEx.name)!==0)
-          issues.push({lvl:"error",msg:c.name+" · "+p.name+": day starts with \""+first.name+"\" — the "+introEx.name.toLowerCase()+" must come first."});
+          issues.push({lvl:"error",msg:t("v_introfirst",c.name,p.name,first.name,introEx.name.toLowerCase())});
       }
       // ordering rules (forced position / "after X")
       var libInds=inPlayIndividuals(), startOf={};
@@ -1567,12 +1876,12 @@ function validateDesign(){
       libInds.forEach(function(ex){
         if(exOrder(ex)!=="auto"){
           var pos=done.indexOf(ex);
-          if(pos>=0 && pos+1!==+ex.order) issues.push({lvl:"error",msg:c.name+" · "+p.name+": "+ex.name+" is exercise #"+(pos+1)+" but must be #"+ex.order+"."});
+          if(pos>=0 && pos+1!==+ex.order) issues.push({lvl:"error",msg:t("v_position",c.name,p.name,ex.name,pos+1,ex.order)});
         }
         if(ex.afterId){
           var tgt=(state.exercises||[]).filter(function(x){return x.id===ex.afterId;})[0];
           if(tgt && startOf[ex.name]!==undefined && startOf[tgt.name]!==undefined && startOf[ex.name]<startOf[tgt.name])
-            issues.push({lvl:"error",msg:c.name+" · "+p.name+": "+ex.name+" must come after "+tgt.name+"."});
+            issues.push({lvl:"error",msg:t("v_after",c.name,p.name,ex.name,tgt.name)});
         }
       });
     });
@@ -1582,9 +1891,9 @@ function validateDesign(){
 function renderValidator(){
   var box=el("valresults"); if(!box) return; box.innerHTML="";
   var issues=validateDesign();
-  if(!issues.length){ box.appendChild(ce("div","val-ok","✓ All checks passed — no rule problems found.")); return; }
+  if(!issues.length){ box.appendChild(ce("div","val-ok",t("v_ok"))); return; }
   var errs=issues.filter(function(i){return i.lvl==="error";}).length, warns=issues.length-errs;
-  box.appendChild(ce("div","val-head",(errs?errs+" issue"+(errs>1?"s":""):"")+(errs&&warns?" · ":"")+(warns?warns+" warning"+(warns>1?"s":""):"")));
+  box.appendChild(ce("div","val-head",t("v_head",errs,warns)));
   issues.forEach(function(i){ var d=ce("div","val-item "+(i.lvl==="error"?"val-err":"val-warn")); d.appendChild(ce("span","val-dot","")); d.appendChild(ce("span",null,i.msg)); box.appendChild(d); });
 }
 
@@ -1616,14 +1925,14 @@ el("btnPrintAll").onclick=doPrintAll;
 
 el("btnAddCommittee").onclick=function(){ addCommittee(); renderCommittees(); };
 el("btnAddRoom").onclick=function(){ addRoom(); renderRooms(); };
-el("btnAddEx").onclick=function(){ state.exercises.push({id:nid(),name:"New exercise",cat:"individual",prepMin:0,runMin:30,include:true,order:"auto",afterId:null}); renderLibrary(); };
+el("btnAddEx").onclick=function(){ state.exercises.push({id:nid(),name:t("ex_new"),cat:"individual",prepMin:0,runMin:30,include:true,order:"auto",afterId:null}); renderLibrary(); };
 el("btnValidate").onclick=renderValidator;
 el("btnGen").onclick=function(){ el("genOverlay").classList.add("show"); };
 el("genCancel").onclick=function(){ el("genOverlay").classList.remove("show"); };
 el("genOverlay").onclick=function(ev){ if(ev.target===el("genOverlay")) el("genOverlay").classList.remove("show"); };
 el("genGo").onclick=function(){
   var hasEntries=state.committees.some(function(c){return c.entries.length;});
-  if(hasEntries && !confirm("Replace the current schedule for all committees?")) return;
+  if(hasEntries && !confirm(t("confirm_replace"))) return;
   genSchedule({ waves:el("genWaves").value, noteGapMin:+el("genGap").value||0, includeGroup:el("genGroup").checked });
   el("genOverlay").classList.remove("show");
   renderValidator();
@@ -1635,7 +1944,7 @@ Array.prototype.forEach.call(document.querySelectorAll("#layoutToggle button"),f
   b.onclick=function(){ state.meta.editLayout=b.dataset.layout; syncLayoutToggle(); renderCommittees(); };
 });
 el("btnExample").onclick=loadExample;
-el("btnClear").onclick=function(){ if(confirm("Clear everything and start fresh?")){ state=blankState(); loadMetaInputs(); renderRooms(); renderLibrary(); renderCommittees(); goStep(1); } };
+el("btnClear").onclick=function(){ if(confirm(t("confirm_clear"))){ state=blankState(); loadMetaInputs(); renderRooms(); renderLibrary(); renderCommittees(); goStep(1); } };
 el("btnSave").onclick=saveProject;
 el("fileJson").onchange=function(){ if(this.files[0]) loadProject(this.files[0]); this.value=""; };
 el("btnExportCsv").onclick=exportCsv;
@@ -1645,6 +1954,11 @@ el("prevWhich").onchange=refreshPreview;
 document.addEventListener("keydown",function(e){ if(e.key==="Escape") closeModal(); });
 
 /* ---------- init ---------- */
+Array.prototype.forEach.call(document.querySelectorAll("#langToggle button"),function(b){
+  b.onclick=function(){ setLang(b.dataset.lang); };
+});
+applyStaticLang();
+syncLangToggle();
 wireMeta();
 var restored=tryRestore();
 loadMetaInputs();
