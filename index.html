@@ -136,10 +136,12 @@
   .colorpop .cp-sw{width:100%;height:20px;border:1px solid rgba(0,0,0,.12);border-radius:4px;padding:0;cursor:pointer}
   .colorpop .cp-row{display:flex;align-items:center;gap:8px;margin-bottom:7px}
   .colorpop .cp-lab{width:74px;font-size:11px;color:var(--muted);font-weight:600}
-  .colorpop .cp-row input[type=range]{flex:1}
+  .colorpop .cp-row input[type=range]{flex:1;min-width:0;width:100%;padding:0;margin:0;border:none;background:transparent;height:22px}
   /* PRINT — everything prints on A4 portrait; the master is rotated 90° on its page,
      and every .page is auto-scaled by fitPages() to fit exactly one sheet. */
-  @page{ size:A4 portrait; margin:14mm }
+  /* @page is set dynamically in #pageStyle: by default margin:0 (suppresses the browser's
+     URL/title header & footer) with the 14mm margin drawn as .page padding instead;
+     the “allow browser header/footer” checkbox switches back to real @page margins. */
   #printArea{position:absolute;left:-99999px;top:0}
   #printArea .fitbox,#printArea .rotbox{transform-origin:top left}
   .agenda-doc,.agenda-doc *,#printArea,#printArea *,#preview,#preview *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;color-adjust:exact!important}
@@ -225,6 +227,7 @@
   .val-warn{background:#fff4e0;color:#8a5a00}
   .val-warn .val-dot{background:#f4b71e}
 </style>
+<style id="pageStyle"></style>
 </head>
 <body>
 <div class="app-ui">
@@ -369,6 +372,7 @@
         <button class="ghost" id="btnPrintAll" data-i18n="btnPrintAll" data-i18n-title="btnPrintAllT" title="Prints individual agendas, committee views and the master grid in one go">🖨 Print everything</button>
       </div>
       <p class="hint" style="margin-top:0" data-i18n-html="hint_print">Every agenda is automatically shrunk to fit <b>exactly one A4 page</b>, and the master grid prints sideways on its page — no printer settings to fiddle with. In the print window choose <b>“Save as PDF”</b> to get a file; if colours look missing, tick <b>“Background graphics”</b> there.</p>
+      <label class="exinc" style="margin:0 0 10px"><input type="checkbox" id="prtHdr"> <span data-i18n="prt_hdr">Allow the browser to print its own page header/footer (app name &amp; link in the margins)</span></label>
       <div id="preview" class="preview-stage"></div>
     </div>
 
@@ -428,6 +432,7 @@
       <select id="genWaves"><option value="auto" selected data-i18n="gen_opt_auto">Decide for me (split when more than 2 participants)</option><option value="1" data-i18n="gen_opt_1">No — everyone starts in the morning</option><option value="2" data-i18n="gen_opt_2">Yes — always two waves</option></select></div>
     <div class="field"><label data-i18n="gen_lbl_gap">Note-writing break for evaluators after each exercise (minutes)</label>
       <input id="genGap" type="number" min="0" step="5" value="0"></div>
+    <div class="field"><label class="exinc"><input type="checkbox" id="genBreaks" checked> <span data-i18n="gen_lbl_breaks">Individual breaks for participants (after every committee interaction; long solo-work blocks are split too)</span></label></div>
     <div class="field"><label class="exinc"><input type="checkbox" id="genGroup" checked> <span data-i18n="gen_lbl_group">Include the group exercise</span></label></div>
     <div class="actions"><span class="spacer"></span><button class="ghost" id="genCancel" data-i18n="md_cancel">Cancel</button><button id="genGo" data-i18n="gen_go">Generate</button></div>
   </div>
@@ -494,15 +499,17 @@ en:{
   gen_lbl_waves:"Start waves — split each committee's group into a morning and an afternoon start?",
   gen_opt_auto:"Decide for me (split when more than 2 participants)",
   gen_opt_1:"No — everyone starts in the morning", gen_opt_2:"Yes — always two waves",
-  gen_lbl_gap:"Note-writing break for evaluators after each exercise (minutes)",
+  gen_lbl_gap:"Extra note-writing gap for evaluators after each exercise (minutes — individual breaks already create natural gaps)",
+  gen_lbl_breaks:"Individual breaks for participants (after every committee interaction; long solo-work blocks are split too)",
   gen_lbl_group:"Include the group exercise", gen_go:"Generate",
+  prt_hdr:"Allow the browser to print its own page header/footer (app name & link in the margins)",
   room_common:"Common room", room_exercise:"Exercise room", room_break:"Break room",
   room_default:"Room {0}", committee_default:"Committee {0}", committee_fallback:"Committee",
   ex_intro:"Introduction", ex_case:"Case study", ex_role:"Role play", ex_fact:"Fact finding",
-  ex_pres:"Presentation", ex_quiz:"Questionnaire", ex_group:"Group exercise", ex_lunch:"Lunch",
+  ex_pres:"Presentation", ex_quiz:"Questionnaire", ex_group:"Group exercise", ex_break:"Break", ex_lunch:"Lunch",
   ex_new:"New exercise",
   suffix_copy:" (copy)", suffix_prep:" (prep)",
-  cat_intro:"intro", cat_individual:"individual", cat_quiz:"quiz", cat_group:"group", cat_lunch:"lunch",
+  cat_intro:"intro", cat_individual:"individual", cat_quiz:"quiz", cat_group:"group", cat_break:"break", cat_lunch:"lunch",
   lbl_prep:"prep", lbl_run:"run", lbl_order:"order", lbl_after:"after", lbl_use:"use",
   tt_prepmin:"Prep minutes", tt_runmin:"Run minutes",
   tt_use:"Include in generated schedules", tt_delex:"Remove exercise",
@@ -623,15 +630,17 @@ ro:{
   gen_lbl_waves:"Valuri de start — împarți grupul fiecărei comisii într-un start de dimineață și unul de după-amiază?",
   gen_opt_auto:"Decide pentru mine (împarte când sunt mai mult de 2 participanți)",
   gen_opt_1:"Nu — toți încep dimineața", gen_opt_2:"Da — întotdeauna două valuri",
-  gen_lbl_gap:"Pauză de notițe pentru evaluatori după fiecare exercițiu (minute)",
+  gen_lbl_gap:"Pauză suplimentară de notițe pentru evaluatori după fiecare exercițiu (minute — pauzele individuale creează deja pauze naturale)",
+  gen_lbl_breaks:"Pauze individuale pentru participanți (după fiecare interacțiune cu comisia; blocurile lungi de lucru individual sunt și ele întrerupte)",
   gen_lbl_group:"Include exercițiul de grup", gen_go:"Generează",
+  prt_hdr:"Permite browserului să tipărească propriul antet/subsol de pagină (numele aplicației și linkul, în margini)",
   room_common:"Sala comună", room_exercise:"Sala de exerciții", room_break:"Sala de pauză",
   room_default:"Sala {0}", committee_default:"Comisia {0}", committee_fallback:"Comisie",
   ex_intro:"Introducere", ex_case:"Studiu de caz", ex_role:"Joc de rol", ex_fact:"Culegere de informații",
-  ex_pres:"Prezentare", ex_quiz:"Chestionar", ex_group:"Exercițiu de grup", ex_lunch:"Prânz",
+  ex_pres:"Prezentare", ex_quiz:"Chestionar", ex_group:"Exercițiu de grup", ex_break:"Pauză", ex_lunch:"Prânz",
   ex_new:"Exercițiu nou",
   suffix_copy:" (copie)", suffix_prep:" (pregătire)",
-  cat_intro:"introducere", cat_individual:"individual", cat_quiz:"chestionar", cat_group:"grup", cat_lunch:"prânz",
+  cat_intro:"introducere", cat_individual:"individual", cat_quiz:"chestionar", cat_group:"grup", cat_break:"pauză", cat_lunch:"prânz",
   lbl_prep:"pregătire", lbl_run:"desfășurare", lbl_order:"ordine", lbl_after:"după", lbl_use:"inclus",
   tt_prepmin:"Minute de pregătire", tt_runmin:"Minute de desfășurare",
   tt_use:"Include în programele generate", tt_delex:"Șterge exercițiul",
@@ -768,16 +777,17 @@ function nid(){ return "id"+(uid++); }
 function seedExercises(){
   return [
     {id:nid(),name:t("ex_intro"),cat:"intro",prepMin:0,runMin:15,include:true,order:"auto",afterId:null},
-    {id:nid(),name:t("ex_case"),cat:"individual",prepMin:30,runMin:30,include:true,order:"auto",afterId:null},
+    {id:nid(),name:t("ex_case"),cat:"individual",prepMin:15,runMin:30,include:true,order:"auto",afterId:null},
     {id:nid(),name:t("ex_role"),cat:"individual",prepMin:15,runMin:15,include:true,order:"auto",afterId:null},
     {id:nid(),name:t("ex_fact"),cat:"individual",prepMin:15,runMin:15,include:true,order:"auto",afterId:null},
     {id:nid(),name:t("ex_pres"),cat:"individual",prepMin:15,runMin:15,include:true,order:"auto",afterId:null},
-    {id:nid(),name:t("ex_quiz"),cat:"quiz",prepMin:0,runMin:30,include:true,order:"auto",afterId:null},
+    {id:nid(),name:t("ex_quiz"),cat:"quiz",prepMin:0,runMin:15,include:true,order:"auto",afterId:null},
     {id:nid(),name:t("ex_group"),cat:"group",prepMin:0,runMin:30,include:true,order:"auto",afterId:null},
+    {id:nid(),name:t("ex_break"),cat:"break",prepMin:0,runMin:15,include:true,order:"auto",afterId:null},
     {id:nid(),name:t("ex_lunch"),cat:"lunch",prepMin:0,runMin:30,include:true,order:"auto",afterId:null}
   ];
 }
-var EX_CATS=["intro","individual","quiz","group","lunch"];
+var EX_CATS=["intro","individual","quiz","group","break","lunch"];
 function exByCat(cat){ return (state.exercises||[]).filter(function(e){return e.cat===cat;})[0]; }
 function inPlayIndividuals(){ return (state.exercises||[]).filter(function(e){return (e.cat==="individual"||e.cat==="quiz") && e.include!==false;}); }
 function exOrder(e){ return (e.order===undefined||e.order===null||e.order==="auto")?"auto":String(e.order); }
@@ -921,8 +931,19 @@ function entryAt(c,pid,idx){
   return null;
 }
 function roomIsShared(r){ return !!(r&&r.shared); }
-function committeeBusyAt(c,idx){
-  for(var i=0;i<c.participants.length;i++){ if(entryAt(c,c.participants[i].id,idx)) return true; }
+// evaluators are engaged when someone is in a non-shared room (an exercise run),
+// or during the synchronised intro / group exercise. Preps, quizzes, breaks and
+// lunch do NOT engage them — so the greyed time axis now shows their real
+// noting/downtime windows, including the gaps between runs.
+function committeeEngagedAt(c,idx){
+  var intro=exByCat("intro"), group=exByCat("group");
+  for(var i=0;i<c.entries.length;i++){var e=c.entries[i];
+    if(idx<e.start||idx>=e.start+e.span) continue;
+    var r=e.roomId?findRoom(e.roomId):null;
+    if(r&&!roomIsShared(r)) return true;
+    if(intro&&e.name.indexOf(intro.name)===0) return true;
+    if(group&&e.name===group.name) return true;
+  }
   return false;
 }
 // clash = 2+ participants in non-shared (exclusive) rooms at the same time
@@ -1037,7 +1058,10 @@ function openColorPopover(anchor,current,onChange){
   document.body.appendChild(colorPop);
   var rc=anchor.getBoundingClientRect();
   colorPop.style.left=Math.max(8,Math.min(rc.left,(window.innerWidth||1000)-242))+"px";
-  colorPop.style.top=(rc.bottom+6)+"px";
+  // keep the popover fully on screen: open above the anchor when there's no room below
+  var ph=colorPop.offsetHeight||230, top=rc.bottom+6;
+  if(top+ph>(window.innerHeight||800)-8) top=Math.max(8,rc.top-ph-6);
+  colorPop.style.top=top+"px";
   setTimeout(function(){ document.addEventListener("mousedown",colorPopOutside,true); },0);
 }
 
@@ -1290,7 +1314,7 @@ function vertGrid(c,N,conf){
     var tr=ce("tr");
     var tcell=ce("td","timecol",rangeLabel(idx,1));
     if(conf.slots[idx]) tcell.classList.add("clash-time");
-    else if(!committeeBusyAt(c,idx)) tcell.classList.add("downtime-time");
+    else if(!committeeEngagedAt(c,idx)) tcell.classList.add("downtime-time");
     tr.appendChild(tcell);
     (function(idx){
       c.participants.forEach(function(p){
@@ -1313,7 +1337,7 @@ function horizGrid(c,N,conf){
   hr.appendChild(ce("th","corner",t("grid_participant")));
   for(var idx=0;idx<N;idx++){ var th=ce("th","tcol",fromMin(slotStartMin(idx)));
     if(conf.slots[idx]) th.classList.add("clash-time");
-    else if(!committeeBusyAt(c,idx)) th.classList.add("downtime-time"); hr.appendChild(th); }
+    else if(!committeeEngagedAt(c,idx)) th.classList.add("downtime-time"); hr.appendChild(th); }
   thead.appendChild(hr); tbl.appendChild(thead);
   var tbody=ce("tbody");
   c.participants.forEach(function(p){
@@ -1519,16 +1543,22 @@ function buildMaster(){
   });
 
   var allEnts=[]; state.committees.forEach(function(c){ allEnts=allEnts.concat(c.entries); });
-  // committee colour legend (since the Exercise room follows committee colour)
-  var cleg="";
-  if(state.committees.length){
-    cleg="<div class='legend'>"+state.committees.map(function(c){
-      return "<span class='li'><span class='sw' style='background:"+(c.color||"#fff")+"'></span>"+esc(c.name)+"</span>";
-    }).join("")+"</div>";
-  }
+  // ONE legend: the exercise room (which follows committee colour) appears once per
+  // committee, in that committee's colour, right next to the other rooms.
+  var lis=[];
+  roomsUsedInEntries(allEnts).forEach(function(r){
+    if(r.followsCommittee && state.committees.length>1){
+      state.committees.forEach(function(c){
+        lis.push("<span class='li'><span class='sw' style='background:"+roomColor(r,c)+"'></span>"+esc(r.name)+" — "+esc(c.name)+"</span>");
+      });
+    } else {
+      lis.push("<span class='li'><span class='sw' style='background:"+roomColor(r,state.committees[0]||null)+"'></span>"+esc(r.name)+"</span>");
+    }
+  });
+  var mleg=lis.length?"<div class='legend'>"+lis.join("")+"</div>":"";
   var sub=[esc(state.meta.title||""), esc(state.meta.date)].filter(Boolean).join(" · ");
   return "<div class='page landscape'><div class='agenda-doc master'><h2>"+t("master_title")+"</h2><div class='sub'>"+sub+"</div>"+
-    legendHTML(roomsUsedInEntries(allEnts),null)+cleg+
+    mleg+
     "<table class='print-tbl master-h'>"+head+"<tbody>"+body+"</tbody></table>"+docFoot()+"</div></div>";
 }
 
@@ -1614,6 +1644,9 @@ function loadProject(file){
 function rehydrateIds(){
   if(!state.exercises || !state.exercises.length) state.exercises=seedExercises();
   state.exercises.forEach(function(e){ if(!e.id)e.id=nid(); if(e.order===undefined||e.order===null)e.order="auto"; if(e.afterId===undefined)e.afterId=null; });
+  // older projects have no individual-break exercise — add the default one
+  if(!state.exercises.some(function(e){return e.cat==="break";}))
+    state.exercises.push({id:nid(),name:t("ex_break"),cat:"break",prepMin:0,runMin:15,include:true,order:"auto",afterId:null});
   if(!state.rooms) state.rooms=[];
   state.rooms.forEach(function(r){ if(!r.id)r.id=nid();
     if(r.shared===undefined) r.shared=/common|comun|break|pauz|pause|lunch|pran/i.test(r.name||""); });
@@ -1787,10 +1820,16 @@ function genPush(c,pid,start,span,name,roomId){
   c.entries.push({pid:pid,start:start,span:span,name:name,roomId:roomId||null,color:r?roomColor(r,c):defaultColor(name)});
 }
 function genPlaceAll(c,parts,start,span,name,roomId){ parts.forEach(function(p){ genPush(c,p.id,start,span,name,roomId); }); }
-function genRotate(c,parts,inds,start,exR,common,noteGap,N){
+function genRotate(c,parts,inds,start,exR,common,noteGap,N,bo){
+  // bo (break options) = {breakS, roomId, name, maxBlockS} or null when individual breaks are off.
+  // Breaks are only ever appended AFTER a finished run or quiz — never between prep and run.
   if(!parts.length||!inds.length) return start;
-  var committeeFree=start, pFree={}, remaining={};
-  parts.forEach(function(p,i){ pFree[p.id]=start; remaining[p.id]=orderedSeq(inds,i); });
+  var committeeFree=start, pFree={}, remaining={}, contSince={};
+  parts.forEach(function(p,i){ pFree[p.id]=start; contSince[p.id]=start; remaining[p.id]=orderedSeq(inds,i); });
+  function takeBreak(pid){ // individual break in the break room (unsynchronised)
+    genPush(c,pid,pFree[pid],bo.breakS,bo.name,bo.roomId);
+    pFree[pid]+=bo.breakS; contSince[pid]=pFree[pid];
+  }
   var guard=0;
   while(parts.some(function(p){return remaining[p.id].length;}) && guard++<3000){
     var avail=parts.filter(function(p){return remaining[p.id].length;});
@@ -1799,12 +1838,17 @@ function genRotate(c,parts,inds,start,exR,common,noteGap,N){
     if(ex.cat==="quiz"){
       var rs=Math.max(1,slotsForMin(ex.runMin)); var st=pFree[p.id];
       genPush(c,p.id,st,rs,ex.name,common.id); pFree[p.id]=st+rs;
+      // a long uninterrupted block of solo work gets split by a break (breathing room)
+      if(bo && remaining[p.id].length && pFree[p.id]-contSince[p.id]>=bo.maxBlockS) takeBreak(p.id);
     } else {
       var ps=slotsForMin(ex.prepMin), r2=Math.max(1,slotsForMin(ex.runMin));
       var runStart=Math.max(committeeFree, pFree[p.id]+ps), prepStart=runStart-ps;
+      if(bo && prepStart-pFree[p.id]>=bo.breakS) contSince[p.id]=prepStart; // waiting time already counts as rest
       if(ps>0) genPush(c,p.id,prepStart,ps,ex.name+t("suffix_prep"),common.id);
       genPush(c,p.id,runStart,r2,ex.name,exR.id);
       committeeFree=runStart+r2+noteGap; pFree[p.id]=runStart+r2;
+      // individual break straight after every committee interaction (skipped when the wave is over)
+      if(bo && remaining[p.id].length) takeBreak(p.id);
     }
   }
   var endT=committeeFree; parts.forEach(function(p){ if(pFree[p.id]>endT) endT=pFree[p.id]; });
@@ -1820,6 +1864,14 @@ function genSchedule(cfg){
   var intro=exByCat("intro"), group=exByCat("group"), lunch=exByCat("lunch");
   var inds=inPlayIndividuals();
   var noteGap=slotsForMin(cfg.noteGapMin||0);
+  // individual participant breaks (break room, unsynchronised) — also give evaluators natural noting gaps
+  var brkEx=exByCat("break"), bo=null;
+  if(cfg.breaks!==false && brkEx && brkEx.include!==false){
+    bo={ breakS:Math.max(1,slotsForMin(brkEx.runMin||15)),
+         roomId:brk?brk.id:null, name:brkEx.name,
+         maxBlockS:Math.max(1,Math.round(90/(+state.meta.slot||15))) };
+    if(!bo.roomId) bo.roomId=common.id;
+  }
   var introS=intro?Math.max(1,slotsForMin(intro.runMin)):0;
   var lunchS=lunch?Math.max(1,slotsForMin(lunch.runMin)):0;
   var groupS=(group&&cfg.includeGroup!==false)?Math.max(1,slotsForMin(group.runMin)):0;
@@ -1830,14 +1882,14 @@ function genSchedule(cfg){
     var waves=nWaves===2?[parts.slice(0,Math.ceil(parts.length/2)),parts.slice(Math.ceil(parts.length/2))]:[parts];
     var cur=0;
     if(introS){ genPlaceAll(c,waves[0],cur,introS,intro.name,common.id); cur+=introS; }
-    cur=genRotate(c,waves[0],inds,cur,exR,common,noteGap,N);
+    cur=genRotate(c,waves[0],inds,cur,exR,common,noteGap,N,bo);
     // Wave 2's intro comes BEFORE the shared lunch/group block (the committee is free
     // right after wave 1's rotation), so the introduction is always everyone's first activity.
     if(waves[1]&&waves[1].length&&introS){ genPlaceAll(c,waves[1],cur,introS,intro.name+" 2",common.id); cur+=introS; }
     if(lunchS){ genPlaceAll(c,parts,cur,lunchS,lunch.name,brk?brk.id:common.id); cur+=lunchS; }
     if(groupS){ genPlaceAll(c,parts,cur,groupS,group.name,common.id); cur+=groupS; }
     if(waves[1]&&waves[1].length){
-      cur=genRotate(c,waves[1],inds,cur,exR,common,noteGap,N);
+      cur=genRotate(c,waves[1],inds,cur,exR,common,noteGap,N,bo);
     }
   });
   renderCommittees(); refreshPreview();
@@ -1847,6 +1899,18 @@ function genSchedule(cfg){
 function validateDesign(){
   var N=slotCount(), issues=[];
   var required=inPlayIndividuals().map(function(e){return e.name;});
+  // lunch detection: the lunch exercise's (possibly renamed/translated) title, a
+  // lunch-like word, or any long-enough stay in the break room — but never the
+  // short individual break.
+  var lunchEx=exByCat("lunch"), breakEx=exByCat("break"), brkRoom=roomRole("break");
+  function isLunchEntry(e){
+    var n=(e.name||"").trim().toLowerCase();
+    if(lunchEx && n===lunchEx.name.trim().toLowerCase()) return true;
+    if(breakEx && n===breakEx.name.trim().toLowerCase()) return false;
+    if(/lunch|prânz|pranz|masă|masa|dejun/i.test(n)) return true;
+    var r=e.roomId?findRoom(e.roomId):null;
+    return !!(r && brkRoom && r.id===brkRoom.id && e.span*(+state.meta.slot||15)>=25);
+  }
   ruleConflicts().forEach(function(m){ issues.push({lvl:"error",msg:t("v_lib",m)}); });
   if(!state.committees.length){ issues.push({lvl:"warn",msg:t("p_nocom")}); return issues; }
   state.committees.forEach(function(c){
@@ -1860,7 +1924,7 @@ function validateDesign(){
       var names={}; c.entries.forEach(function(e){ if(e.pid===p.id) names[e.name]=1; });
       var missing=required.filter(function(rn){return !names[rn];});
       if(missing.length) issues.push({lvl:"warn",msg:t("v_missing",c.name,p.name,missing.join(", "))});
-      if(!c.entries.some(function(e){return e.pid===p.id && /lunch|pauz|pran/i.test(e.name);})) issues.push({lvl:"warn",msg:t("v_nolunch",c.name,p.name)});
+      if(!c.entries.some(function(e){return e.pid===p.id && isLunchEntry(e);})) issues.push({lvl:"warn",msg:t("v_nolunch",c.name,p.name)});
       // the introduction must be every participant's first activity
       var introEx=exByCat("intro");
       if(introEx && introEx.include!==false){
@@ -1922,6 +1986,18 @@ Array.prototype.forEach.call(document.querySelectorAll("#steps > button"),functi
 Array.prototype.forEach.call(document.querySelectorAll("[data-goto]"),function(b){ b.onclick=function(){goStep(+b.getAttribute("data-goto"));}; });
 el("btnPrint").onclick=function(){ doPrint(el("prevWhich").value); };
 el("btnPrintAll").onclick=doPrintAll;
+/* Browser print header/footer (URL & app name): suppressed by default by printing with
+   @page margin 0 and drawing the 14mm margin as page padding instead — the browser has no
+   margin area to print its header into. The checkbox opts back in to real @page margins
+   (the header also needs “Headers and footers” ticked in the print dialog). */
+function updatePageStyle(){
+  var allow=el("prtHdr")&&el("prtHdr").checked;
+  el("pageStyle").textContent=allow
+    ? "@page{size:A4 portrait;margin:14mm}@media print{#printArea .page{padding:0}}"
+    : "@page{size:A4 portrait;margin:0}@media print{#printArea .page{padding:14mm;box-sizing:content-box}}";
+}
+if(el("prtHdr")) el("prtHdr").onchange=updatePageStyle;
+updatePageStyle();
 
 el("btnAddCommittee").onclick=function(){ addCommittee(); renderCommittees(); };
 el("btnAddRoom").onclick=function(){ addRoom(); renderRooms(); };
@@ -1933,7 +2009,7 @@ el("genOverlay").onclick=function(ev){ if(ev.target===el("genOverlay")) el("genO
 el("genGo").onclick=function(){
   var hasEntries=state.committees.some(function(c){return c.entries.length;});
   if(hasEntries && !confirm(t("confirm_replace"))) return;
-  genSchedule({ waves:el("genWaves").value, noteGapMin:+el("genGap").value||0, includeGroup:el("genGroup").checked });
+  genSchedule({ waves:el("genWaves").value, noteGapMin:+el("genGap").value||0, includeGroup:el("genGroup").checked, breaks:el("genBreaks").checked });
   el("genOverlay").classList.remove("show");
   renderValidator();
 };
