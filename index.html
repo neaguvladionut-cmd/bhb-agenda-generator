@@ -546,6 +546,7 @@ en:{
   opt_newroom:"➕ New room…", prompt_newroom:"New room name:",
   toast_loaded:"Project loaded",
   alert_badfile:"That doesn't look like a valid project file.",
+  alert_printblocked:"The print window could not open. Please allow pop-ups for this page, then try again.",
   alert_csvempty:"CSV looks empty.",
   alert_csvcols:"CSV must have at least Committee, Participant, Activity, Start columns.",
   toast_imported:"Imported {0} rows",
@@ -677,6 +678,7 @@ ro:{
   opt_newroom:"➕ Sală nouă…", prompt_newroom:"Numele noii săli:",
   toast_loaded:"Proiect încărcat",
   alert_badfile:"Fișierul nu pare a fi un proiect valid.",
+  alert_printblocked:"Fereastra de tipărire nu s-a putut deschide. Permite ferestrele pop-up pentru această pagină și încearcă din nou.",
   alert_csvempty:"CSV-ul pare gol.",
   alert_csvcols:"CSV-ul trebuie să aibă cel puțin coloanele Comisie, Participant, Activitate, Început (sau Committee, Participant, Activity, Start).",
   toast_imported:"S-au importat {0} rânduri",
@@ -1576,16 +1578,17 @@ function buildOutput(which){
 var MMPX=96/25.4;                       // CSS px per mm
 var PAGE_W=Math.floor(182*MMPX);        // A4 portrait printable width  (210mm − 2×14mm margins)
 var PAGE_H=Math.floor(269*MMPX)-2;      // A4 portrait printable height (297mm − 2×14mm), −2px safety
-function fitPages(){
-  var pages=el("printArea").querySelectorAll(".page");
+function fitPages(root){
+  root=root||el("printArea");
+  var doc=root.ownerDocument, pages=root.querySelectorAll(".page");
   Array.prototype.forEach.call(pages,function(pg){
     var land=(" "+pg.className+" ").indexOf(" landscape ")>=0;
     pg.style.width=PAGE_W+"px"; pg.style.height=PAGE_H+"px"; pg.style.overflow="hidden";
-    var fit=ce("div","fitbox");
+    var fit=doc.createElement("div"); fit.className="fitbox";
     while(pg.firstChild) fit.appendChild(pg.firstChild);
     if(land){
       // content laid out landscape (PAGE_H wide × PAGE_W tall), then rotated onto the portrait sheet
-      var rot=ce("div","rotbox");
+      var rot=doc.createElement("div"); rot.className="rotbox";
       rot.style.width=PAGE_H+"px"; rot.style.height=PAGE_W+"px";
       rot.style.transform="rotate(90deg) translateY(-"+PAGE_W+"px)";
       fit.style.width=PAGE_H+"px";
@@ -1602,19 +1605,36 @@ function fitPages(){
     }
   });
 }
-function doPrint(which){
-  el("printArea").innerHTML=buildOutput(which);
-  fitPages();
-  window.print();
+function printDocument(which,html){
+  var w=window.open("","_blank");
+  if(!w){ alert(t("alert_printblocked")); return; }
+  var css=Array.prototype.map.call(document.querySelectorAll("head style:not(#pageStyle)"),function(s){return s.textContent;}).join("\n");
+  var pageCss=el("pageStyle").textContent;
+  var title=esc(state.meta.title||"Agenda Generator");
+  try{
+    w.document.open();
+    w.document.write("<!DOCTYPE html><html lang='"+LANG+"'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1'><title>"+title+"</title><style>"+css+"</style><style id='pageStyle'>"+pageCss+"</style></head><body><div id='printArea'>"+html+"</div></body></html>");
+    w.document.close();
+  }catch(e){ try{w.close();}catch(ignore){} alert(t("alert_printblocked")); return; }
+  var start=function(){
+    if(w.closed) return;
+    var root=w.document.getElementById("printArea");
+    if(!root) return;
+    fitPages(root);
+    w.focus();
+    w.print();
+  };
+  var queueStart=function(){
+    if(w.requestAnimationFrame) w.requestAnimationFrame(function(){w.requestAnimationFrame(start);});
+    else setTimeout(start,50);
+  };
+  var closeAfterPrint=function(){ setTimeout(function(){ if(!w.closed) w.close(); },50); };
+  if(w.addEventListener) w.addEventListener("afterprint",closeAfterPrint);
+  if(w.document.fonts&&w.document.fonts.ready) w.document.fonts.ready.then(queueStart,queueStart);
+  else queueStart();
 }
-function doPrintAll(){
-  el("printArea").innerHTML=buildIndividual()+buildCommittee()+buildMaster();
-  fitPages();
-  window.print();
-}
-// tidy up the (offscreen) print area once the print dialog closes,
-// so it doesn't leave a phantom scrollbar behind
-window.addEventListener("afterprint",function(){ el("printArea").innerHTML=""; });
+function doPrint(which){ printDocument(which,buildOutput(which)); }
+function doPrintAll(){ printDocument("all",buildIndividual()+buildCommittee()+buildMaster()); }
 
 /* ---------- preview ---------- */
 function refreshPreview(){
