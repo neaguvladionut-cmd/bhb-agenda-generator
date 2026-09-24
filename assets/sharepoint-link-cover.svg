@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900">
+  <defs>
+    <clipPath id="canvas"><rect x="0" y="0" width="1200" height="900"/></clipPath>
+  </defs>
+  <g clip-path="url(#canvas)">
+  <rect width="1200" height="900" fill="#ffffff"/>
+
+  <!-- ============ document card (big rounded top-left corner) ============ -->
+  <path d="M 410 90
+           Q 310 90 310 190
+           L 310 736
+           Q 310 760 334 760
+           L 1116 760
+           Q 1140 760 1140 736
+           L 1140 114
+           Q 1140 90 1116 90
+           Z"
+        fill="#ffffff" stroke="#231f20" stroke-width="3"/>
+
+  <!-- title -->
+  <text x="395" y="185" font-family="Poppins" font-weight="600" font-size="46" fill="#09bad2">Agenda Generator</text>
+  <text x="398" y="222" font-family="Poppins" font-weight="600" font-size="18" fill="#231f20">Business Health Bar</text>
+
+  <!-- time axis -->
+  <g font-family="Poppins" font-weight="500" font-size="19" fill="#231f20">
+    <text x="500" y="292" text-anchor="middle">9:00</text>
+    <text x="650" y="292" text-anchor="middle">11:00</text>
+    <text x="800" y="292" text-anchor="middle">13:00</text>
+    <text x="950" y="292" text-anchor="middle">15:00</text>
+    <text x="1100" y="292" text-anchor="middle">17:00</text>
+  </g>
+
+  <!-- dashed chart frame + row lines -->
+  <g stroke="#b9b9b9" stroke-width="1.6" stroke-dasharray="3 7" fill="none">
+    <rect x="465" y="310" width="655" height="330"/>
+    <line x1="465" y1="392.5" x2="1120" y2="392.5"/>
+    <line x1="465" y1="475"   x2="1120" y2="475"/>
+    <line x1="465" y1="557.5" x2="1120" y2="557.5"/>
+    <line x1="575" y1="310" x2="575" y2="640"/>
+    <line x1="725" y1="310" x2="725" y2="640"/>
+    <line x1="875" y1="310" x2="875" y2="640"/>
+    <line x1="1025" y1="310" x2="1025" y2="640"/>
+  </g>
+
+  <!-- row labels -->
+  <g font-family="Poppins" font-weight="500" font-size="20" fill="#231f20" text-anchor="end">
+    <text x="448" y="358">Ana</text>
+    <text x="448" y="441">Dan</text>
+    <text x="448" y="523">Mara</text>
+    <text x="448" y="606">Radu</text>
+  </g>
+
+  <!-- synchronised lunch column (green) -->
+  <rect x="800" y="318" width="52" height="314" rx="10" fill="#39b54a"/>
+
+  <!-- staggered schedule blocks -->
+  <g>
+    <rect x="482" y="336" width="92"  height="30" rx="7" fill="#09bad2"/>
+    <rect x="598" y="336" width="64"  height="30" rx="7" fill="#f8ec32"/>
+    <rect x="690" y="336" width="88"  height="30" rx="7" fill="#09bad2"/>
+    <rect x="874" y="336" width="120" height="30" rx="7" fill="#09bad2"/>
+
+    <rect x="512" y="418" width="72"  height="30" rx="7" fill="#f8ec32"/>
+    <rect x="612" y="418" width="110" height="30" rx="7" fill="#09bad2"/>
+    <rect x="898" y="418" width="70"  height="30" rx="7" fill="#f8ec32"/>
+    <rect x="994" y="418" width="98"  height="30" rx="7" fill="#09bad2"/>
+
+    <rect x="482" y="501" width="110" height="30" rx="7" fill="#09bad2"/>
+    <rect x="640" y="501" width="66"  height="30" rx="7" fill="#f8ec32"/>
+    <rect x="874" y="501" width="86"  height="30" rx="7" fill="#f8ec32"/>
+    <rect x="986" y="501" width="106" height="30" rx="7" fill="#09bad2"/>
+
+    <rect x="540" y="583" width="96"  height="30" rx="7" fill="#09bad2"/>
+    <rect x="664" y="583" width="108" height="30" rx="7" fill="#f8ec32"/>
+    <rect x="906" y="583" width="120" height="30" rx="7" fill="#09bad2"/>
+  </g>
+
+  <!-- lunch label -->
+  <text x="826" y="676" font-family="Poppins" font-weight="500" font-size="17" fill="#231f20" text-anchor="middle">Lunch</text>
+
+  <!-- ============ clock doodle ============ -->
+  <g>
+    <circle cx="165" cy="165" r="72" fill="#ffffff" stroke="#231f20" stroke-width="3"/>
+    <line x1="165" y1="112" x2="165" y2="124" stroke="#231f20" stroke-width="3"/>
+    <line x1="165" y1="206" x2="165" y2="218" stroke="#231f20" stroke-width="3"/>
+    <line x1="112" y1="165" x2="124" y2="165" stroke="#231f20" stroke-width="3"/>
+    <line x1="206" y1="165" x2="218" y2="165" stroke="#231f20" stroke-width="3"/>
+    <line x1="165" y1="165" x2="165" y2="120" stroke="#231f20" stroke-width="4" stroke-linecap="round"/>
+    <!-- yellow arrow hand -->
+    <path d="M 165 165 L 202 192" stroke="#f8ec32" stroke-width="10" stroke-linecap="round"/>
+    <path d="M 196 174 L 212 199 L 183 197 Z" fill="#f8ec32"/>
+    <circle cx="165" cy="165" r="6" fill="#231f20"/>
+  </g>
+
+  <!-- ============ character (front-left, cropped by bottom edge) ============ -->
+  <!-- pointing arm (behind torso, above card) : layered stroke = outlined limb -->
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 275 710 Q 320 590 355 505" stroke="#231f20" stroke-width="48"/>
+    <path d="M 275 710 Q 320 590 355 505" stroke="#ffffff" stroke-width="39"/>
+  </g>
+  <!-- pointing hand: fist + index finger pointing into the grid -->
+  <g>
+    <circle cx="366" cy="470" r="22" fill="#ffffff" stroke="#231f20" stroke-width="3"/>
+    <path d="M 383 466 Q 403 463 420 460" fill="none" stroke="#231f20" stroke-width="19" stroke-linecap="round"/>
+    <path d="M 383 466 Q 403 463 420 460" fill="none" stroke="#ffffff" stroke-width="12" stroke-linecap="round"/>
+  </g>
+
+  <!-- torso -->
+  <path d="M 128 900
+           C 130 780 150 706 208 678
+           L 292 678
+           C 352 706 370 780 372 900
+           Z"
+        fill="#ffffff" stroke="#231f20" stroke-width="3"/>
+  <!-- collar -->
+  <path d="M 208 678 L 250 720 L 292 678" fill="#ffffff" stroke="#231f20" stroke-width="3" stroke-linejoin="round"/>
+  <!-- tie (green) -->
+  <path d="M 236 716 L 264 716 L 274 742 L 262 848 L 250 866 L 238 848 L 226 742 Z"
+        fill="#39b54a" stroke="#231f20" stroke-width="3" stroke-linejoin="round"/>
+
+  <!-- neck -->
+  <path d="M 228 640 L 228 682 L 272 682 L 272 640 Z" fill="#ffffff" stroke="#231f20" stroke-width="3"/>
+
+  <!-- head -->
+  <ellipse cx="250" cy="565" rx="82" ry="88" fill="#ffffff" stroke="#231f20" stroke-width="3"/>
+
+  <!-- curly yellow hair -->
+  <g fill="#f8ec32" stroke="#231f20" stroke-width="3">
+    <circle cx="178" cy="520" r="30"/>
+    <circle cx="204" cy="486" r="32"/>
+    <circle cx="248" cy="470" r="34"/>
+    <circle cx="294" cy="484" r="32"/>
+    <circle cx="322" cy="520" r="30"/>
+    <circle cx="250" cy="500" r="40"/>
+  </g>
+  <!-- hairline mask: keep face clear -->
+  <path d="M 176 552 Q 250 512 324 552 L 324 560 Q 250 606 176 560 Z" fill="#ffffff" stroke="none"/>
+
+  <!-- face -->
+  <circle cx="222" cy="576" r="6" fill="#231f20"/>
+  <circle cx="282" cy="576" r="6" fill="#231f20"/>
+  <path d="M 248 588 Q 244 602 252 606" fill="none" stroke="#231f20" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 234 622 Q 252 636 270 622" fill="none" stroke="#231f20" stroke-width="3" stroke-linecap="round"/>
+
+  </g>
+</svg>

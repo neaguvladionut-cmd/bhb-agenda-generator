@@ -6,3 +6,11 @@ offline-capable web app (no server, no build step). This repo hosts it via GitHu
 - **Use it:** open the GitHub Pages URL for this repo. Works offline after first visit; installable as an app (browser "Install" button).
 - **Your data:** schedules are saved in your own browser and via .json export — nothing is stored in this repo or on any server.
 - **Update the app:** replace `index.html` with the new version and commit.
+
+## Source and reference material
+
+The root `index.html` is the maintained source and the served Pages entrypoint (D260). This
+single-file app has no build step and the repository root is the deployment surface.
+
+The `docs/`, `samples/`, and `assets/` folders contain public reference material. Sample
+evaluator labels are neutral synthetic fixtures, not client records.

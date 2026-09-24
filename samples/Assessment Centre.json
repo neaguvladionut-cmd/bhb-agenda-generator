@@ -1,0 +1,259 @@
+{
+  "meta": {
+    "title": "Assessment Centre",
+    "date": "",
+    "start": "09:00",
+    "end": "14:00",
+    "slot": 15,
+    "editLayout": "horizontal"
+  },
+  "rooms": [
+    {
+      "id": "id7",
+      "name": "Common room",
+      "color": "#a5d8ff",
+      "followsCommittee": false
+    },
+    {
+      "id": "id8",
+      "name": "Exercise room",
+      "color": "#dfe3e3",
+      "followsCommittee": true
+    },
+    {
+      "id": "id9",
+      "name": "Break room",
+      "color": "#ef4136"
+    }
+  ],
+  "committees": [
+    {
+      "id": "id10",
+      "name": "Committee 1",
+      "evaluators": "Evaluator A, Evaluator B",
+      "color": "#00f900",
+      "participants": [
+        {
+          "id": "id11",
+          "name": "P1"
+        },
+        {
+          "id": "id12",
+          "name": "P2"
+        }
+      ],
+      "entries": [
+        {
+          "pid": "id11",
+          "start": 0,
+          "span": 1,
+          "name": "Introduction",
+          "roomId": "id7",
+          "color": "#a5d8ff"
+        },
+        {
+          "pid": "id11",
+          "start": 1,
+          "span": 3,
+          "name": "Business case",
+          "roomId": "id8",
+          "color": "#c5f6fa"
+        },
+        {
+          "pid": "id11",
+          "start": 4,
+          "span": 2,
+          "name": "Break",
+          "roomId": "id9",
+          "color": "#ef4136"
+        },
+        {
+          "pid": "id11",
+          "start": 6,
+          "span": 2,
+          "name": "Role play",
+          "roomId": "id8",
+          "color": "#c5f6fa"
+        },
+        {
+          "pid": "id11",
+          "start": 8,
+          "span": 2,
+          "name": "Questionnaire",
+          "roomId": "id7",
+          "color": "#a5d8ff"
+        },
+        {
+          "pid": "id11",
+          "start": 10,
+          "span": 3,
+          "name": "Group exercise",
+          "roomId": "id8",
+          "color": "#c5f6fa"
+        },
+        {
+          "pid": "id12",
+          "start": 1,
+          "span": 1,
+          "name": "Introduction",
+          "roomId": "id7",
+          "color": "#a5d8ff"
+        },
+        {
+          "pid": "id12",
+          "start": 2,
+          "span": 3,
+          "name": "Business case",
+          "roomId": "id8",
+          "color": "#c5f6fa"
+        },
+        {
+          "pid": "id12",
+          "start": 5,
+          "span": 2,
+          "name": "Break",
+          "roomId": "id9",
+          "color": "#ef4136"
+        },
+        {
+          "pid": "id12",
+          "start": 7,
+          "span": 2,
+          "name": "Role play",
+          "roomId": "id8",
+          "color": "#c5f6fa"
+        },
+        {
+          "pid": "id12",
+          "start": 9,
+          "span": 2,
+          "name": "Questionnaire",
+          "roomId": "id7",
+          "color": "#a5d8ff"
+        },
+        {
+          "pid": "id12",
+          "start": 11,
+          "span": 3,
+          "name": "Group exercise",
+          "roomId": "id8",
+          "color": "#c5f6fa"
+        }
+      ]
+    },
+    {
+      "id": "id13",
+      "name": "Committee 2",
+      "evaluators": "Evaluator C, Evaluator D",
+      "color": "#ff40ff",
+      "participants": [
+        {
+          "id": "id14",
+          "name": "P1"
+        },
+        {
+          "id": "id15",
+          "name": "P2"
+        }
+      ],
+      "entries": [
+        {
+          "pid": "id14",
+          "start": 0,
+          "span": 1,
+          "name": "Introduction",
+          "roomId": "id7",
+          "color": "#a5d8ff"
+        },
+        {
+          "pid": "id14",
+          "start": 1,
+          "span": 3,
+          "name": "Business case",
+          "roomId": "id8",
+          "color": "#d3f9d8"
+        },
+        {
+          "pid": "id14",
+          "start": 4,
+          "span": 2,
+          "name": "Break",
+          "roomId": "id9",
+          "color": "#ef4136"
+        },
+        {
+          "pid": "id14",
+          "start": 6,
+          "span": 2,
+          "name": "Role play",
+          "roomId": "id8",
+          "color": "#d3f9d8"
+        },
+        {
+          "pid": "id14",
+          "start": 8,
+          "span": 2,
+          "name": "Questionnaire",
+          "roomId": "id7",
+          "color": "#a5d8ff"
+        },
+        {
+          "pid": "id14",
+          "start": 10,
+          "span": 3,
+          "name": "Group exercise",
+          "roomId": "id8",
+          "color": "#d3f9d8"
+        },
+        {
+          "pid": "id15",
+          "start": 1,
+          "span": 1,
+          "name": "Introduction",
+          "roomId": "id7",
+          "color": "#a5d8ff"
+        },
+        {
+          "pid": "id15",
+          "start": 2,
+          "span": 3,
+          "name": "Business case",
+          "roomId": "id8",
+          "color": "#d3f9d8"
+        },
+        {
+          "pid": "id15",
+          "start": 5,
+          "span": 2,
+          "name": "Break",
+          "roomId": "id9",
+          "color": "#ef4136"
+        },
+        {
+          "pid": "id15",
+          "start": 7,
+          "span": 2,
+          "name": "Role play",
+          "roomId": "id8",
+          "color": "#d3f9d8"
+        },
+        {
+          "pid": "id15",
+          "start": 9,
+          "span": 2,
+          "name": "Questionnaire",
+          "roomId": "id7",
+          "color": "#a5d8ff"
+        },
+        {
+          "pid": "id15",
+          "start": 11,
+          "span": 3,
+          "name": "Group exercise",
+          "roomId": "id8",
+          "color": "#d3f9d8"
+        }
+      ]
+    }
+  ]
+}
