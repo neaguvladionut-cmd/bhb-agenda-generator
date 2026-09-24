@@ -1,0 +1,25 @@
+Committee,Evaluators,Participant,Activity,Room,Start,End
+Committee 1,"Evaluator A, Evaluator B",P1,Introduction,Common room,09:00,09:15
+Committee 1,"Evaluator A, Evaluator B",P1,Business case,Exercise room,09:15,10:00
+Committee 1,"Evaluator A, Evaluator B",P1,Break,Break room,10:00,10:30
+Committee 1,"Evaluator A, Evaluator B",P1,Role play,Exercise room,10:30,11:00
+Committee 1,"Evaluator A, Evaluator B",P1,Questionnaire,Common room,11:00,11:30
+Committee 1,"Evaluator A, Evaluator B",P1,Group exercise,Exercise room,11:30,12:15
+Committee 1,"Evaluator A, Evaluator B",P2,Introduction,Common room,09:15,09:30
+Committee 1,"Evaluator A, Evaluator B",P2,Business case,Exercise room,09:30,10:15
+Committee 1,"Evaluator A, Evaluator B",P2,Break,Break room,10:15,10:45
+Committee 1,"Evaluator A, Evaluator B",P2,Role play,Exercise room,10:45,11:15
+Committee 1,"Evaluator A, Evaluator B",P2,Questionnaire,Common room,11:15,11:45
+Committee 1,"Evaluator A, Evaluator B",P2,Group exercise,Exercise room,11:45,12:30
+Committee 2,"Evaluator C, Evaluator D",P1,Introduction,Common room,09:00,09:15
+Committee 2,"Evaluator C, Evaluator D",P1,Business case,Exercise room,09:15,10:00
+Committee 2,"Evaluator C, Evaluator D",P1,Break,Break room,10:00,10:30
+Committee 2,"Evaluator C, Evaluator D",P1,Role play,Exercise room,10:30,11:00
+Committee 2,"Evaluator C, Evaluator D",P1,Questionnaire,Common room,11:00,11:30
+Committee 2,"Evaluator C, Evaluator D",P1,Group exercise,Exercise room,11:30,12:15
+Committee 2,"Evaluator C, Evaluator D",P2,Introduction,Common room,09:15,09:30
+Committee 2,"Evaluator C, Evaluator D",P2,Business case,Exercise room,09:30,10:15
+Committee 2,"Evaluator C, Evaluator D",P2,Break,Break room,10:15,10:45
+Committee 2,"Evaluator C, Evaluator D",P2,Role play,Exercise room,10:45,11:15
+Committee 2,"Evaluator C, Evaluator D",P2,Questionnaire,Common room,11:15,11:45
+Committee 2,"Evaluator C, Evaluator D",P2,Group exercise,Exercise room,11:45,12:30
